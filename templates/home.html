@@ -2,13 +2,25 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>UpTrade</title>
+    <link href="/stylesheets/home.css" rel="stylesheet">
   </head>
+  <div id="logoHeader">
+    <div id="header">
+      <img src="/stylesheets/UpTrade.png" alt"logo" />
+    </div>
+  </div>
+  <ul>
+    <li style-"float:right"><a class="active" href="/">Home</a></li>
+    <li><a href="/product">Products</a></li>
+    <li><a href="/exchange">Exchange</a></li>
+    <li style="float:right"><a href="/profile">Profile</a></li>
+  </ul>
+<br>
   <body>
     <br>
     Current User is: {{current_user}}<br>Username: {{current_user.user_id()}}<br><br>
   <a href="{{signin_link}}">Login</a><br><br><br>
-    <h1>UpTrade</h1>
     {% for product in products %}
       <div><img src="/img?img_id={{product.key.urlsafe()}}"></img>
       <br><h3>{{product.name}}</h3>
