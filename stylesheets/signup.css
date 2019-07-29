@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 body {
   font-family: Arial, Helvetica, sans-serif;
   background-color: black;
@@ -65,40 +65,4 @@ body {
   color: black;
   font-family: Georgia;
   font-size: 20px;
-}
-
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #451b04;
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
-}
-
-li {
-  float: left;
-}
-
-li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 24px;
-  text-decoration: none;
-}
-
-li a:hover {
-  background-color: #dbcccc;
-}
-
-.active {
-<<<<<<< HEAD
-  background-color: #81b14f;
->>>>>>> 1d1c4930a3a7c78959659f707d0354c53c966fb2
-=======
-  background-color: #81B14F;
->>>>>>> 8b473991b61bd47b6f1fefee73ec7f0e9f6b6285
 }
