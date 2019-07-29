@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Sign Up Form</title>
+
+
+    <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
+
+
+    <link rel="stylesheet" href="stylesheets/signup.css">
+</head>
+<body>
+
+    <div class="main">
+
+        <!-- Sign up form -->
+        <section class="signup">
+            <div class="container">
+                <div class="signup-content">
+                    <div class="signup-form">
+                        <h2 class="form-title">Sign up</h2>
+                        <p>Please fill in this form to create an account.</p>
+                        <hr>
+                        <form method="POST" class="register-form" id="register-form">
+                            <div>
+                                <input type="text" name="name" id="name" placeholder="Your Name"/>
+                            </div>
+                            <div">
+                                <input type="email" name="email" id="email" placeholder="Your Email"/>
+                            </div>
+                            <div>
+                              <input type="password" name="pass" id="pass" placeholder="Password"/>
+                            </div>
+                            <div>
+                              <input type="password" name="re_pass" id="re_pass" placeholder="Repeat your password"/>
+                            </div>
+                            <div>
+                                <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
+                                <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
+                            </div>
+                            <button type="submit" class="registerbtn">Register</button>
+                        </form>
+                    </div>
+                    <div class="container signin">
+                        <p>Already have an account?<a href="#"> Sign in</a>.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+    </div>
+
+
+</body>
+</html>
