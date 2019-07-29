@@ -7,19 +7,22 @@
   <body>
     <br><h1>Add a product</h1>
     <p>Please enter information for all required fields (*):</p>
-    <form class="" action="index.html" method="get">
+    <form class="" action="" enctype="multipart/form-data" method="post">
       <br>
-      Name (*):<input type="text" name="prodname" value="">
+      <div>Name (*):<input type="text" name="nam" value=""></div>
       <br>
-      Description (*):<input type="text" name="prodname" value="">
+      <div>Description (*):<input type="text" name="desc" value=""></div>
       <br>
-      Upload an image of your product: (*)<input type="file" name="pic" accept="image/*" value="">
+      Upload an image of your product: (*)<div>
+        <input type="file" name="pic" accept="image/*" value="">
+      </div>
       <br>
-      Category:<input type="text" name="prodname" value="">
+      <div>Category:<input type="radio" id= "cat1" name="cat" value="">
+      <label for="cat1">Category</label></div>
+      <div>Category:<input type="radio" id= "cat2" name="cat" value="">
+      <label for="cat1">Category</label></div>
       <br><br>
       <input type="submit" name="sub-butt" value="Add product">
-
-      <input type="image" name="" value="">
     </form>
   </body>
 </html>
