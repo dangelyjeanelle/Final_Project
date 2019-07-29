@@ -24,25 +24,15 @@ class MainPage(webapp2.RequestHandler):
 
 
 class Product(ndb.Model):
-    title=ndb.StringProperty(required=True)
-    runtime=ndb.IntegerProperty(required=True)
-    rating=ndb.FloatProperty(required=False, default=0)
-    star_names=ndb.StringProperty(required=False,repeated=True)
-
-    def describe(self):
-        return "%s is %d minute(s) long, with a rating of %f" % (self.title, self.runtime, self.rating)
+    name=ndb.StringProperty(required=True)
+    description=ndb.StringProperty(required=True)
+    seller=ndb.KeyProperty(required=True)
+    category=ndb.StringProperty(required=True)
 
 class User(ndb.Model):
-    name=ndb.StringProperty(required=True)
-    dob=ndb.StringProperty(required=True)
-    awards=ndb.IntegerProperty(required=False, default=0)
-    worth=ndb.IntegerProperty(required=False, default=0)
-
-    def bio(self):
-        return "%s was born on %s, is worth %f and has won %d awards" % (self.name,self.dob,self.worth,self.awards)
-#
-# spiderverse= Movie(title="Into the spiderverse",runtime=117,rating=9.0,)
-# anne_hathaway= Star(name="Anne Hathaway",dob="11-12-1982",awards=9,worth=35)
+    username=ndb.StringProperty(required=True)
+    products=ndb.KeyProperty(required=False, repeated=True)
+    email=ndb.EmailProperty(required=True)
 
 class ProductPage(webapp2.RequestHandler):
     def get(self):
@@ -85,16 +75,16 @@ class ExchangePage(webapp2.RequestHandler):
         self.response.write(template.render(template_vars))
 class AddPage(webapp2.RequestHandler):
     def get(self):
-        name=self.request.get("name") or "World"
-        sta=[]
-        for star in Star.query().fetch():
-            sta.append(Star(name=star.name,dob=star.dob,worth=star.worth, awards=star.awards))
-        template_vars={
-        "name":name,
-        "stars":sta
-        }
+
+        template=jinja_env.get_template("templates/add.html")
+        self.response.write(template.render())
+
+class SignUpPage(webapp2.RequestHandler):
+    def get(self):
+        
         template=jinja_env.get_template("templates/stars.html")
-        self.response.write(template.render(template_vars))
+        self.response.write(template.render())
+
 
 app=webapp2.WSGIApplication([
     ("/", MainPage),
@@ -102,5 +92,5 @@ app=webapp2.WSGIApplication([
     ("/profile", ProfilePage),
     ("/exchange", ExchangePage),
     ("/add", AddPage),
-    ("/", SignUpPage),
+    ("/signup", SignUpPage),
 ], debug=True)
