@@ -7,7 +7,7 @@ div#logoHeader {
 }
 
 div#logoHeader div#header {
- width: 700px;
+ width: 900px;
  height: 150px;
  margin:0 auto;
 }
@@ -29,7 +29,7 @@ ul {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #c4bd8b;
+  background-color: #451b04;
   position: -webkit-sticky;
   position: sticky;
   top: 0;
@@ -52,5 +52,5 @@ li a:hover {
 }
 
 .active {
-  background-color: #81b14f;
+  background-color: #81B14F;
 }
