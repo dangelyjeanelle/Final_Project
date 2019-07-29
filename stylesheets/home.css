@@ -1,14 +1,20 @@
+body {
+  background-color: #81b14f;
+  color: white;
+}
+
 ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #dddddd;
-  /*TODO: change color */
+  background-color: #c4bd8b;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
 }
 
 li {
-  display: inline;
   float: left;
 }
 
@@ -21,5 +27,9 @@ li a {
 }
 
 li a:hover {
-  background-color: #111;
+  background-color: #dbcccc;
+}
+
+.active {
+  background-color: #8faab3;
 }
