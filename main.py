@@ -27,12 +27,13 @@ class Product(ndb.Model):
     name=ndb.StringProperty(required=True)
     description=ndb.StringProperty(required=True)
     seller=ndb.KeyProperty(required=True)
-    category=ndb.StringProperty(required=True)
-
+    category=ndb.StringProperty(required=False)
+    
 class User(ndb.Model):
     username=ndb.StringProperty(required=True)
+    userid=ndb.IntegerProperty(required=True)
     products=ndb.KeyProperty(required=False, repeated=True)
-    email=ndb.EmailProperty(required=True)
+    email=ndb.StringProperty(required=True)
 
 class ProductPage(webapp2.RequestHandler):
     def get(self):
@@ -81,7 +82,7 @@ class AddPage(webapp2.RequestHandler):
 
 class SignUpPage(webapp2.RequestHandler):
     def get(self):
-        
+
         template=jinja_env.get_template("templates/stars.html")
         self.response.write(template.render())
 
