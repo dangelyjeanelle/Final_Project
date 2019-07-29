@@ -30,7 +30,7 @@ class MainPage(webapp2.RequestHandler):
         self.response.write(template.render(template_vars))
 
 
-class Movie(ndb.Model):
+class Product(ndb.Model):
     title=ndb.StringProperty(required=True)
     runtime=ndb.IntegerProperty(required=True)
     rating=ndb.FloatProperty(required=False, default=0)
@@ -39,7 +39,7 @@ class Movie(ndb.Model):
     def describe(self):
         return "%s is %d minute(s) long, with a rating of %f" % (self.title, self.runtime, self.rating)
 
-class Star(ndb.Model):
+class User(ndb.Model):
     name=ndb.StringProperty(required=True)
     dob=ndb.StringProperty(required=True)
     awards=ndb.IntegerProperty(required=False, default=0)
@@ -51,7 +51,7 @@ class Star(ndb.Model):
 # spiderverse= Movie(title="Into the spiderverse",runtime=117,rating=9.0,)
 # anne_hathaway= Star(name="Anne Hathaway",dob="11-12-1982",awards=9,worth=35)
 
-class PopulateDatabasePage(webapp2.RequestHandler):
+class ProductPage(webapp2.RequestHandler):
     def get(self):
         spiderverse= Movie(title="Spider-Man: Into the Spider-Verse",runtime=117,rating=8.5,star_names=["Shameik Moore", "Jake Johnson", "Hailee Steinfeld"])
         shameik= Star(name="Shameik Moore",dob="05-04-1995",awards=2,worth=1)
@@ -65,7 +65,7 @@ class PopulateDatabasePage(webapp2.RequestHandler):
         self.response.write(template.render())
         self.redirect("/")
 
-class StarPage(webapp2.RequestHandler):
+class ProfilePage(webapp2.RequestHandler):
     def get(self):
         name=self.request.get("name") or "World"
         sta=[]
@@ -78,9 +78,35 @@ class StarPage(webapp2.RequestHandler):
         template=jinja_env.get_template("templates/stars.html")
         self.response.write(template.render(template_vars))
 
+class ExchangePage(webapp2.RequestHandler):
+    def get(self):
+        name=self.request.get("name") or "World"
+        sta=[]
+        for star in Star.query().fetch():
+            sta.append(Star(name=star.name,dob=star.dob,worth=star.worth, awards=star.awards))
+        template_vars={
+        "name":name,
+        "stars":sta
+        }
+        template=jinja_env.get_template("templates/stars.html")
+        self.response.write(template.render(template_vars))
+class AddPage(webapp2.RequestHandler):
+    def get(self):
+        name=self.request.get("name") or "World"
+        sta=[]
+        for star in Star.query().fetch():
+            sta.append(Star(name=star.name,dob=star.dob,worth=star.worth, awards=star.awards))
+        template_vars={
+        "name":name,
+        "stars":sta
+        }
+        template=jinja_env.get_template("templates/stars.html")
+        self.response.write(template.render(template_vars))
 
 app=webapp2.WSGIApplication([
     ("/", MainPage),
-    ("/populateDatabase", PopulateDatabasePage),
-    ("/stars", StarPage)
+    ("/product", ProductPage),
+    ("/profile", ProfilePage),
+    ("/exchange", ExchangePage),
+    ("/add", AddPage)
 ], debug=True)
