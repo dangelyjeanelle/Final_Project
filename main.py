@@ -9,25 +9,18 @@ jinja_env=jinja2.Environment(
 )
 class MainPage(webapp2.RequestHandler):
     def get(self):
-        name=self.request.get("name") or "World"
-        mov= Movie.query().fetch()
-        st=Star.query().fetch()
-        sta={
-        }
-        usr=users.get_current_user()
-        signin_link=users.create_login_url("/")
-        for star in st:
-            sta.update({star.name:star})
-        template_vars={
-        "name":name,
-        "movies":mov,
-        "stars":sta,
-        "current_user":usr,
-        "signin_link":signin_link,
-
-        }
-        template=jinja_env.get_template("templates/idk.html")
-        self.response.write(template.render(template_vars))
+        # name=self.request.get("name") or "World"
+        # mov= Movie.query().fetch()
+        # st=Star.query().fetch()
+        # sta={
+        # }
+        # usr=users.get_current_user()
+        # signin_link=users.create_login_url("/")
+        # for star in st:
+        #     sta.update({star.name:star})
+        #
+        template=jinja_env.get_template("templates/home.html")
+        self.response.write(template.render())
 
 
 class Product(ndb.Model):
@@ -108,5 +101,6 @@ app=webapp2.WSGIApplication([
     ("/product", ProductPage),
     ("/profile", ProfilePage),
     ("/exchange", ExchangePage),
-    ("/add", AddPage)
+    ("/add", AddPage),
+    ("/", SignUpPage),
 ], debug=True)
