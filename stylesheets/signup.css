@@ -40,7 +40,6 @@ a {
 .signin {
   background-color: #f1f1f1;
   text-align: center;
-=======
 div#logoHeader {
  width: 100%;
  height: 200px;
@@ -66,3 +65,72 @@ body {
   font-family: Georgia;
   font-size: 20px;
 }
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #451b04;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 24px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #dbcccc;
+}
+
+.active {
+  background-color: #81B14F;
+}
+
+
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  padding: 16px;
+  background-color: white;
+}
+
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+.registerbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+.registerbtn:hover {
+  opacity: 1;
+}
+
+a {
+  color: dodgerblue;
+}
+
+.signin {
+  background-color: #f1f1f1;
+  text-align: center;
