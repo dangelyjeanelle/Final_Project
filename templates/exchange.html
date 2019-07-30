@@ -2,16 +2,21 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
+
     <title>Exchange</title>
     <link href="/stylesheets/exchange.css" rel="stylesheet">
   <div id="logoHeader">
     <div id="header">
-      <img src="/stylesheets/UpTrade.png" alt"logo" />
+      <img src="/stylesheets/UpTrade.png" alt"logo"/>
     </div>
   </div>
+  <ul>
+    <li><a href="/"><img src="/stylesheets/leaves.png" alt"leaves" height="18" width="18"/> Home</a></li>
+    <li><a href="/product"><img src="/stylesheets/leaves.png" alt"leaves" height="18" width="18"/> Products</a></li>
+    <li style-"float:right"><a class="active" href="/exchange"><img src="/stylesheets/leaves.png" alt"leaves" height="18" width="18"/>Exchange</a></li>
+    <li style="float:right"><a href="/profile"><img src="/stylesheets/leaves.png" alt"leaves" height="18" width="18"/> Profile</a></li>
+  </ul>
+<br>
   <body>
     <h1>Books!!</h1>
       {% for book in books %}
