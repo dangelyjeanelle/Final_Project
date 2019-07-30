@@ -24,12 +24,25 @@
 <br>
   <body>
     <br>
+    <section class="products">
+
   <!-- <a href="{{signin_link}}">Login</a><br><br><br> -->
     {% for product in products %}
-      <div class="prod">
-        <img src="/img?img_id={{product.key.urlsafe()}}"></img>
-        <br><h3>{{product.name}}</h3>
+      <div class="product-card">
+        <a href="/product?id={{product.key.urlsafe()}}"><div class="product-image">
+          <img src="/img?img_id={{product.key.urlsafe()}}"></img>
+        </div>
+        <div class="product-info">
+          <br><h3>{{product.name}}</h3>
+        </div></a>
+        <!-- <div class="product-image">
+          <img src="/img?img_id={{product.key.urlsafe()}}"></img>
+        </div>
+        <div class="product-info">
+          <br><h3>{{product.name}}</h3>
+        </div> -->
       </div>
     {% endfor %}
+    </section>
   </body>
 </html>
