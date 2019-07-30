@@ -131,7 +131,7 @@ class SignUpPage(webapp2.RequestHandler):
 
 class ClothingPage(webapp2.RequestHandler):
     def get(self):
-        pro=Product.query().filter(category="Clothing").fetch()
+        pro=Product.query().filter(ndb.StringProperty("category")=="Clothing").fetch()
         template_vars={
         "products":pro
         }
@@ -140,7 +140,7 @@ class ClothingPage(webapp2.RequestHandler):
 
 class DecorationPage(webapp2.RequestHandler):
     def get(self):
-        pro=Product.query().filter(category="Decoration").fetch()
+        pro=Product.query().filter(ndb.StringProperty("category")=="Decoration").fetch()
         template_vars={
         "products":pro
         }
@@ -149,7 +149,7 @@ class DecorationPage(webapp2.RequestHandler):
 
 class AccessoriesPage(webapp2.RequestHandler):
     def get(self):
-        pro=Product.query().filter(category="Accessories").fetch()
+        pro=Product.query().filter(ndb.StringProperty("category")=="Accessories").fetch()
         template_vars={
         "products":pro
         }
@@ -158,7 +158,7 @@ class AccessoriesPage(webapp2.RequestHandler):
 
 class OfficePage(webapp2.RequestHandler):
     def get(self):
-        pro=Product.query().filter(category="Office").fetch()
+        pro=Product.query().filter(ndb.StringProperty("category")=="Office").fetch()
         template_vars={
         "products":pro
         }
@@ -167,7 +167,7 @@ class OfficePage(webapp2.RequestHandler):
 
 class OtherPage(webapp2.RequestHandler):
     def get(self):
-        pro=Product.query().fetch()
+        pro=Product.query().filter(ndb.StringProperty("category")=="Other").fetch()
         template_vars={
         "products":pro
         }
