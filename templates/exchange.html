@@ -11,13 +11,27 @@
     </div>
   </div>
   <ul>
-    <li style-"float:right"><a class="active" href="/"><img src="/stylesheets/leaves.png" alt"leaves" height="18" width="18"/> Home</a></li>
-    <li><a href="/product"><img src="/stylesheets/leaves.png" alt"leaves" height="18" width="18"/> Products</a></li>
-    <li><a href="/exchange"><img src="/stylesheets/leaves.png" alt"leaves" height="18" width="18"/> Exchange</a></li>
+<li><a href="/"><img src="/stylesheets/leaves.png" alt"leaves" height="18" width="18"/> Home</a></li>
+<li><a href="/accessories"><img src="/stylesheets/leaves.png" alt"leaves" height="18" width="18"/> Accessories</a></li>
+<li><a href="/clothing"><img src="/stylesheets/leaves.png" alt"leaves" height="18" width="18"/> Clothing</a></li>
+<li><a href="/decoration"><img src="/stylesheets/leaves.png" alt"leaves" height="18" width="18"/> Decoration</a></li>
+<li><a href="/office"><img src="/stylesheets/leaves.png" alt"leaves" height="18" width="18"/> Office Supplies</a></li>
+<li><a href="/other"><img src="/stylesheets/leaves.png" alt"leaves" height="18" width="18"/> Other</a></li>
     <li style="float:right"><a href="/profile"><img src="/stylesheets/leaves.png" alt"leaves" height="18" width="18"/> Profile</a></li>
   </ul>
 <br>
   <body>
-    hello world
+    <h1>Books!!</h1>
+      {% for book in books %}
+        <div class="book">
+          <h4>{{book['volumeInfo']['title']}}</h4>
+          <img src="{{book['volumeInfo']['imageLinks']['thumbnail']}}" alt=""><br>
+          <ul>
+            {% for author in book['volumeInfo']['authors'] %}
+            <li>{{author}}</li><br>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endfor %}
   </body>
 </html>

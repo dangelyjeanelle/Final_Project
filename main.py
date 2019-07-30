@@ -1,10 +1,12 @@
 import webapp2
 import jinja2
+import json
 import os
+import urllib
 from google.appengine.api import images
 from google.appengine.ext import ndb
 from google.appengine.api import users
-
+from google.appengine.api import urlfetch
 
 jinja_env=jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__))
@@ -40,7 +42,7 @@ class Product(ndb.Model):
     photo=ndb.BlobProperty(required=True)
 
 class User(ndb.Model):
-    username=ndb.StringProperty(required=True)
+    name=ndb.StringProperty(required=True)
     userid=ndb.IntegerProperty(required=True)
     products=ndb.KeyProperty(kind=Product, required=False, repeated=True)
     email=ndb.StringProperty(required=True)
@@ -58,8 +60,22 @@ class ProfilePage(webapp2.RequestHandler):
 
 class ExchangePage(webapp2.RequestHandler):
     def get(self):
+        # Set up key and url
+        api_key="AIzaSyBLIoqzNWJjQ0o_BSnVJ9JoKp34Xas26q0"
+        base_url="https://www.googleapis.com/books/v1/volumes"
+        params={"q":"Harry Potter",
+        "api_key":api_key,}
+        full_url=base_url+"?"+urllib.urlencode(params)
+
+        # Fetch url
+        books_response=urlfetch.fetch(full_url).content
+        # Get JSON response and convert to a python dictionary
+        books_dictionary=json.loads(books_response)
+        template_vars={
+        "books":books_dictionary["items"]
+        }
         template=jinja_env.get_template("templates/exchange.html")
-        self.response.write(template.render())
+        self.response.write(template.render(template_vars))
 class AddPage(webapp2.RequestHandler):
     def get(self):
         template=jinja_env.get_template("templates/add.html")
@@ -72,10 +88,38 @@ class AddPage(webapp2.RequestHandler):
 
 class SignUpPage(webapp2.RequestHandler):
     def get(self):
-
         template=jinja_env.get_template("templates/signup.html")
         self.response.write(template.render())
+    def post(self):
+        User(name=self.request.get("nam"),description=self.request.get("desc"),photo=images.resize(self.request.get("pic"),250,250), category=self.request.get("cat"),seller=users.get_current_user().nickname()).put()
+        template=jinja_env.get_template("templates/added.html")
+        self.response.write(template.render())
+        self.redirect("/profile")
 
+class ClothingPage(webapp2.RequestHandler):
+    def get(self):
+        template=jinja_env.get_template("templates/clothing.html")
+        self.response.write(template.render())
+
+class DecorationPage(webapp2.RequestHandler):
+    def get(self):
+        template=jinja_env.get_template("templates/decoration.html")
+        self.response.write(template.render())
+
+class AccessoriesPage(webapp2.RequestHandler):
+    def get(self):
+        template=jinja_env.get_template("templates/accessories.html")
+        self.response.write(template.render())
+
+class OfficePage(webapp2.RequestHandler):
+    def get(self):
+        template=jinja_env.get_template("templates/office.html")
+        self.response.write(template.render())
+
+class OtherPage(webapp2.RequestHandler):
+    def get(self):
+        template=jinja_env.get_template("templates/other.html")
+        self.response.write(template.render())
 
 app=webapp2.WSGIApplication([
     ("/", MainPage),
@@ -84,5 +128,10 @@ app=webapp2.WSGIApplication([
     ("/exchange", ExchangePage),
     ("/add", AddPage),
     ("/signup", SignUpPage),
-    ("/img", Image)
+    ("/img", Image),
+    ("/clothing", ClothingPage),
+    ("/decoration", DecorationPage),
+    ("/accessories", AccessoriesPage),
+    ("/office", OfficePage),
+    ("/other", OtherPage),
 ], debug=True)
