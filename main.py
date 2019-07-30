@@ -88,8 +88,16 @@ class ProductPage(webapp2.RequestHandler):
 
 class ProfilePage(webapp2.RequestHandler):
     def get(self):
+        user=users.get_current_user()
+        email_address=user.nickname()
+        uptrade_user=UptradeUser.get_by_id(user.user_id())
+        template_vars = {
+            "user": uptrade_user.name,
+            "image": uptrade_user.avatar,
+            "email_address": email_address,
+        }
         template=jinja_env.get_template("templates/profile.html")
-        self.response.write(template.render())
+        self.response.write(template.render(template_vars))
 
 class ExchangePage(webapp2.RequestHandler):
     def get(self):
