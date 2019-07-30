@@ -38,6 +38,7 @@ class MainPage(webapp2.RequestHandler):
               uptrade_user.name,
               signout_link_html))
             else:
+                self.redirect("/signup")
                 self.response.write('''
             Welcome to UpTrade, %s!  Please sign up! <br>
             <form class="" action="" enctype="multipart/form-data" method="post">
@@ -113,7 +114,7 @@ class AddPage(webapp2.RequestHandler):
         template=jinja_env.get_template("templates/add.html")
         self.response.write(template.render())
     def post(self):
-        Product(name=self.request.get("nam"),description=self.request.get("desc"),photo=images.resize(self.request.get("pic"),250,250), category=self.request.get("cat"),seller=users.get_current_user().nickname()).put()
+        Product(name=self.request.get("nam"),description=self.request.get("desc"),photo=images.resize(self.request.get("pic"),250,250), category=self.request.get("cat"),seller=users.get_current_user().name()).put()
         template=jinja_env.get_template("templates/added.html")
         self.response.write(template.render())
         self.redirect("/profile")
@@ -130,28 +131,48 @@ class SignUpPage(webapp2.RequestHandler):
 
 class ClothingPage(webapp2.RequestHandler):
     def get(self):
+        pro=Product.query().filter(category="Clothing").fetch()
+        template_vars={
+        "products":pro
+        }
         template=jinja_env.get_template("templates/clothing.html")
-        self.response.write(template.render())
+        self.response.write(template.render(template_vars))
 
 class DecorationPage(webapp2.RequestHandler):
     def get(self):
+        pro=Product.query().filter(category="Decoration").fetch()
+        template_vars={
+        "products":pro
+        }
         template=jinja_env.get_template("templates/decoration.html")
-        self.response.write(template.render())
+        self.response.write(template.render(template_vars))
 
 class AccessoriesPage(webapp2.RequestHandler):
     def get(self):
+        pro=Product.query().filter(category="Accessories").fetch()
+        template_vars={
+        "products":pro
+        }
         template=jinja_env.get_template("templates/accessories.html")
-        self.response.write(template.render())
+        self.response.write(template.render(template_vars))
 
 class OfficePage(webapp2.RequestHandler):
     def get(self):
+        pro=Product.query().filter(category="Office").fetch()
+        template_vars={
+        "products":pro
+        }
         template=jinja_env.get_template("templates/office.html")
-        self.response.write(template.render())
+        self.response.write(template.render(template_vars))
 
 class OtherPage(webapp2.RequestHandler):
     def get(self):
+        pro=Product.query().fetch()
+        template_vars={
+        "products":pro
+        }
         template=jinja_env.get_template("templates/other.html")
-        self.response.write(template.render())
+        self.response.write(template.render(template_vars))
 
 app=webapp2.WSGIApplication([
     ("/", MainPage),

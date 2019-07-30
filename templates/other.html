@@ -20,5 +20,11 @@
     <li style="float:right"><a href="/profile"><img src="/stylesheets/leaves.png" alt"leaves" height="18" width="18"/> Profile</a></li>
   </ul>
   <body>
+    {% for product in products %}
+      <div class="prod">
+        <img src="/img?img_id={{product.key.urlsafe()}}"></img>
+        <br><h3>{{product.name}}</h3>
+      </div>
+    {% endfor %}
   </body>
 </html>
