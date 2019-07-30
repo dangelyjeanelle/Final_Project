@@ -22,8 +22,10 @@
     Current User is: {{current_user}}<br>Username: {{current_user.user_id()}}<br><br>
   <a href="{{signin_link}}">Login</a><br><br><br>
     {% for product in products %}
-      <div><img src="/img?img_id={{product.key.urlsafe()}}"></img>
-      <br><h3>{{product.name}}</h3>
+      <div class="prod">
+        <img src="/img?img_id={{product.key.urlsafe()}}"></img>
+        <br><h3>{{product.name}}</h3>
+      </div>
     {% endfor %}
   </body>
 </html>

@@ -96,6 +96,31 @@ class SignUpPage(webapp2.RequestHandler):
         self.response.write(template.render())
         self.redirect("/profile")
 
+class ClothingPage(webapp2.RequestHandler):
+    def get(self):
+        template=jinja_env.get_template("templates/clothing.html")
+        self.response.write(template.render())
+
+class DecorationPage(webapp2.RequestHandler):
+    def get(self):
+        template=jinja_env.get_template("templates/decoration.html")
+        self.response.write(template.render())
+
+class AccessoriesPage(webapp2.RequestHandler):
+    def get(self):
+        template=jinja_env.get_template("templates/accessories.html")
+        self.response.write(template.render())
+
+class OfficePage(webapp2.RequestHandler):
+    def get(self):
+        template=jinja_env.get_template("templates/office.html")
+        self.response.write(template.render())
+
+class OtherPage(webapp2.RequestHandler):
+    def get(self):
+        template=jinja_env.get_template("templates/other.html")
+        self.response.write(template.render())
+
 app=webapp2.WSGIApplication([
     ("/", MainPage),
     ("/product", ProductPage),
@@ -103,5 +128,10 @@ app=webapp2.WSGIApplication([
     ("/exchange", ExchangePage),
     ("/add", AddPage),
     ("/signup", SignUpPage),
-    ("/img", Image)
+    ("/img", Image),
+    ("/clothing", ClothingPage),
+    ("/decoration", DecorationPage),
+    ("/accessories", AccessoriesPage),
+    ("/office", OfficePage),
+    ("/other", OtherPage),
 ], debug=True)
