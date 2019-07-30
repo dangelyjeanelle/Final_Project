@@ -24,8 +24,7 @@
 <br>
   <body>
     <br>
-    Current User is: {{current_user}}<br>Username: {{current_user.user_id()}}<br><br>
-  <a href="{{signin_link}}">Login</a><br><br><br>
+  <!-- <a href="{{signin_link}}">Login</a><br><br><br> -->
     {% for product in products %}
       <div class="prod">
         <img src="/img?img_id={{product.key.urlsafe()}}"></img>

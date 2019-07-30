@@ -39,15 +39,15 @@ class MainPage(webapp2.RequestHandler):
               signout_link_html))
             else:
                 self.redirect("/signup")
-                self.response.write('''
-            Welcome to UpTrade, %s!  Please sign up! <br>
-            <form class="" action="" enctype="multipart/form-data" method="post">
-            Full name: <input type="text" name="name"><br>
-            Upload your profile picture:
-            <input type="file" name="pic" accept="image/*" value="">
-            <input type="submit">
-            </form><br> %s <br>
-            ''' % (email_address, signout_link_html))
+            #     self.response.write('''
+            # Welcome to UpTrade, %s!  Please sign up! <br>
+            # <form class="" action="" enctype="multipart/form-data" method="post">
+            # Full name: <input type="text" name="name"><br>
+            # Upload your profile picture:
+            # <input type="file" name="pic" accept="image/*" value="">
+            # <input type="submit">
+            # </form><br> %s <br>
+            # ''' % (email_address, signout_link_html))
         else:
             self.response.write('''
         Please log in! <br>
@@ -114,7 +114,12 @@ class AddPage(webapp2.RequestHandler):
         template=jinja_env.get_template("templates/add.html")
         self.response.write(template.render())
     def post(self):
-        Product(name=self.request.get("nam"),description=self.request.get("desc"),photo=images.resize(self.request.get("pic"),250,250), category=self.request.get("cat"),seller=users.get_current_user().name()).put()
+        Product(
+        name=self.request.get("nam"),
+        description=self.request.get("desc"),
+        photo=images.resize(self.request.get("pic"),250,250),
+        category=self.request.get("cat"),
+        seller=UptradeUser.get_by_id(users.get_current_user().user_id()).name()).put()
         template=jinja_env.get_template("templates/added.html")
         self.response.write(template.render())
         self.redirect("/profile")
@@ -124,7 +129,7 @@ class SignUpPage(webapp2.RequestHandler):
         template=jinja_env.get_template("templates/signup.html")
         self.response.write(template.render())
     def post(self):
-        UptradeUser(name=self.request.get("nam"),description=self.request.get("desc"),photo=images.resize(self.request.get("pic"),250,250), category=self.request.get("cat"),seller=users.get_current_user().nickname()).put()
+        UptradeUser(name=self.request.get("name"),avatar=images.resize(self.request.get("pic"),250,250)).put()
         template=jinja_env.get_template("templates/added.html")
         self.response.write(template.render())
         self.redirect("/profile")

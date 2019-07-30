@@ -30,26 +30,20 @@
                         <h2 class="form-title">Sign up</h2>
                         <p>Please enter the following information to create an account.</p>
                         <hr>
-                        <form method="POST" class="register-form" id="register-form">
-                            <div>
-                                <input type="text" name="name" id="name" placeholder="Your Name"/>
-                            </div>
-                            <div">
-                                <input type="email" name="email" id="email" placeholder="Your Email"/>
-                            </div>
-                            <div>
-                              <input type="password" name="pass" id="pass" placeholder="Password"/>
-                            </div>
-                            <div>
-                              <input type="password" name="re_pass" id="re_pass" placeholder="Confirm your password"/>
-                            </div>
+                        <form class="" action="/" enctype="multipart/form-data" method="post">
+                              Full name: <input type="text" name="name"><br>
+                              Upload your profile picture:
+                              <input type="file" name="pic" accept="image/*" value=""><br><br>
+                              <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
+                              <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
+                              <button type="submit" class="registerbtn">Register</button>
+                              </form>
+
                             <div>
                               <br>
-                                <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
-                                <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
+                                <!-- <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
+                                <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label> -->
                             </div>
-                            <button type="submit" class="registerbtn">Register</button>
-                        </form>
                     </div>
                     <div class="container signin">
                         <p>Already have an account?<a href="#"> Sign in</a>.</p>
