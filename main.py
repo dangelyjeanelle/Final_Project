@@ -11,19 +11,65 @@ from google.appengine.api import urlfetch
 jinja_env=jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__))
 )
+class Product(ndb.Model):
+    name=ndb.StringProperty(required=True)
+    description=ndb.StringProperty(required=True)
+    seller=ndb.StringProperty(required=False)
+    category=ndb.StringProperty(required=False)
+    photo=ndb.BlobProperty(required=True)
+
+class UptradeUser(ndb.Model):
+    name=ndb.StringProperty(required=True)
+    # userid=ndb.IntegerProperty(required=True)
+    products=ndb.KeyProperty(kind=Product, required=False, repeated=True)
+    # email=ndb.StringProperty(required=True)
+    avatar=ndb.BlobProperty(required=False)
+
 class MainPage(webapp2.RequestHandler):
     def get(self):
         pro=Product.query().fetch()
-
-        usr=users.get_current_user()
+        user=users.get_current_user()
+        if user:
+            email_address=user.nickname()
+            uptrade_user=UptradeUser.get_by_id(user.user_id())
+            signout_link_html='<a href="%s">Sign out</a>' % (users.create_logout_url("/"))
+            if uptrade_user:
+                self.response.write('''Welcome %s! <br> %s <br>''' % (
+              uptrade_user.name,
+              signout_link_html))
+            else:
+                self.response.write('''
+            Welcome to UpTrade, %s!  Please sign up! <br>
+            <form class="" action="" enctype="multipart/form-data" method="post">
+            Full name: <input type="text" name="name"><br>
+            Upload your profile picture:
+            <input type="file" name="pic" accept="image/*" value="">
+            <input type="submit">
+            </form><br> %s <br>
+            ''' % (email_address, signout_link_html))
+        else:
+            self.response.write('''
+        Please log in! <br>
+        <a href="%s">Sign in</a>''' % (
+          users.create_login_url('/')))
         signin_link=users.create_login_url("/")
         template_vars={
-        "current_user":usr,
+        "current_user":user,
         "signin_link":signin_link,
         "products":pro
         }
         template=jinja_env.get_template("templates/home.html")
         self.response.write(template.render(template_vars))
+    def post(self):
+        user=users.get_current_user()
+        if not user:
+            self.error(500)
+            return
+        uptrade_user=UptradeUser(name=self.request.get("name"),avatar=images.resize(self.request.get("pic"),100,100),id=user.user_id())
+        uptrade_user.put()
+        self.redirect("/")
+        # self.response.write("Thanks for signing up, %s!" % uptrade_user.name)
+
 
 class Image(webapp2.RequestHandler):
     def get(self):
@@ -33,20 +79,6 @@ class Image(webapp2.RequestHandler):
             self.response.out.write(product.photo)
         else:
             self.response.out.write('No image')
-
-class Product(ndb.Model):
-    name=ndb.StringProperty(required=True)
-    description=ndb.StringProperty(required=True)
-    seller=ndb.StringProperty(required=False)
-    category=ndb.StringProperty(required=False)
-    photo=ndb.BlobProperty(required=True)
-
-class User(ndb.Model):
-    name=ndb.StringProperty(required=True)
-    userid=ndb.IntegerProperty(required=True)
-    products=ndb.KeyProperty(kind=Product, required=False, repeated=True)
-    email=ndb.StringProperty(required=True)
-    avatar=ndb.BlobProperty(required=False)
 
 class ProductPage(webapp2.RequestHandler):
     def get(self):
@@ -91,7 +123,7 @@ class SignUpPage(webapp2.RequestHandler):
         template=jinja_env.get_template("templates/signup.html")
         self.response.write(template.render())
     def post(self):
-        User(name=self.request.get("nam"),description=self.request.get("desc"),photo=images.resize(self.request.get("pic"),250,250), category=self.request.get("cat"),seller=users.get_current_user().nickname()).put()
+        UptradeUser(name=self.request.get("nam"),description=self.request.get("desc"),photo=images.resize(self.request.get("pic"),250,250), category=self.request.get("cat"),seller=users.get_current_user().nickname()).put()
         template=jinja_env.get_template("templates/added.html")
         self.response.write(template.render())
         self.redirect("/profile")
