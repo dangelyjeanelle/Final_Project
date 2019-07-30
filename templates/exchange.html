@@ -2,22 +2,28 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-<<<<<<< HEAD
     <title></title>
   </head>
   <body>
-
-=======
     <title>Exchange</title>
     <link href="/stylesheets/exchange.css" rel="stylesheet">
-  </head>
   <div id="logoHeader">
     <div id="header">
       <img src="/stylesheets/UpTrade.png" alt"logo" />
     </div>
   </div>
   <body>
-    hello world
->>>>>>> 1d1c4930a3a7c78959659f707d0354c53c966fb2
+    <h1>Books!!</h1>
+      {% for book in books %}
+        <div class="book">
+          <h4>{{book['volumeInfo']['title']}}</h4>
+          <img src="{{book['volumeInfo']['imageLinks']['thumbnail']}}" alt=""><br>
+          <ul>
+            {% for author in book['volumeInfo']['authors'] %}
+            <li>{{author}}</li><br>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endfor %}
   </body>
 </html>

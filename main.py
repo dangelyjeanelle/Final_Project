@@ -1,10 +1,12 @@
 import webapp2
 import jinja2
+import json
 import os
+import urllib
 from google.appengine.api import images
 from google.appengine.ext import ndb
 from google.appengine.api import users
-
+from google.appengine.api import urlfetch
 
 jinja_env=jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__))
@@ -58,8 +60,22 @@ class ProfilePage(webapp2.RequestHandler):
 
 class ExchangePage(webapp2.RequestHandler):
     def get(self):
+        # Set up key and url
+        api_key="AIzaSyBLIoqzNWJjQ0o_BSnVJ9JoKp34Xas26q0"
+        base_url="https://www.googleapis.com/books/v1/volumes"
+        params={"q":"Harry Potter",
+        "api_key":api_key,}
+        full_url=base_url+"?"+urllib.urlencode(params)
+        print "full_url: ",full_url
+        # Fetch url
+        books_response=urlfetch.fetch(full_url).content
+        # Get JSON response and convert to a python dictionary
+        books_dictionary=json.loads(books_response)
+        template_vars={
+        "books":books_dictionary["items"]
+        }
         template=jinja_env.get_template("templates/exchange.html")
-        self.response.write(template.render())
+        self.response.write(template.render(template_vars))
 class AddPage(webapp2.RequestHandler):
     def get(self):
         template=jinja_env.get_template("templates/add.html")
@@ -72,7 +88,6 @@ class AddPage(webapp2.RequestHandler):
 
 class SignUpPage(webapp2.RequestHandler):
     def get(self):
-
         template=jinja_env.get_template("templates/signup.html")
         self.response.write(template.render())
 
