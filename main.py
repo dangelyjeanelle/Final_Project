@@ -14,7 +14,7 @@ jinja_env=jinja2.Environment(
 class Product(ndb.Model):
     name=ndb.StringProperty(required=True)
     description=ndb.StringProperty(required=True)
-    seller=ndb.StringProperty(required=False)
+    seller=ndb.KeyProperty(required=True)
     category=ndb.StringProperty(required=False)
     photo=ndb.BlobProperty(required=True)
 
@@ -22,7 +22,7 @@ class UptradeUser(ndb.Model):
     name=ndb.StringProperty(required=True)
     # userid=ndb.IntegerProperty(required=True)
     products=ndb.KeyProperty(kind=Product, required=False, repeated=True)
-    # email=ndb.StringProperty(required=True)
+    # email=ndb.StringProperty(required=True)  aka nickname
     avatar=ndb.BlobProperty(required=False)
 
 class MainPage(webapp2.RequestHandler):
@@ -83,8 +83,17 @@ class Image(webapp2.RequestHandler):
 
 class ProductPage(webapp2.RequestHandler):
     def get(self):
-        template=jinja_env.get_template("templates/product.html")
-        self.response.write(template.render())
+        if self.request.get("id"):
+            urlsafe_key=self.request.get("id")
+            key=ndb.Key(urlsafe=urlsafe_key)
+            product=Product.query().filter(Product.key==key).get()
+            template_vars={
+            "product":product
+            }
+            template=jinja_env.get_template("templates/product.html")
+            self.response.write(template.render(template_vars))
+        else:
+            self.redirect("/")
 
 class ProfilePage(webapp2.RequestHandler):
     def get(self):
@@ -119,7 +128,7 @@ class AddPage(webapp2.RequestHandler):
         description=self.request.get("desc"),
         photo=images.resize(self.request.get("pic"),250,250),
         category=self.request.get("cat"),
-        seller=UptradeUser.get_by_id(users.get_current_user().user_id()).name()).put()
+        seller=UptradeUser.get_by_id(users.get_current_user().user_id()).put()).put()
         template=jinja_env.get_template("templates/added.html")
         self.response.write(template.render())
         self.redirect("/profile")

@@ -20,6 +20,10 @@
     <li style="float:right"><a href="/profile"><img src="/stylesheets/leaves.png" alt"leaves" height="18" width="18"/> Profile</a></li>
   </ul>
   <body>
+    <br>
+    {% if products|length==0 %}
+      <h3>There are currently no items in this category</h3>
+    {% endif %}
     {% for product in products %}
       <div class="prod">
         <img src="/img?img_id={{product.key.urlsafe()}}"></img>
