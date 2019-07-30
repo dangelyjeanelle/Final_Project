@@ -42,7 +42,7 @@ class Product(ndb.Model):
     photo=ndb.BlobProperty(required=True)
 
 class User(ndb.Model):
-    username=ndb.StringProperty(required=True)
+    name=ndb.StringProperty(required=True)
     userid=ndb.IntegerProperty(required=True)
     products=ndb.KeyProperty(kind=Product, required=False, repeated=True)
     email=ndb.StringProperty(required=True)
@@ -66,7 +66,7 @@ class ExchangePage(webapp2.RequestHandler):
         params={"q":"Harry Potter",
         "api_key":api_key,}
         full_url=base_url+"?"+urllib.urlencode(params)
-        print "full_url: ",full_url
+
         # Fetch url
         books_response=urlfetch.fetch(full_url).content
         # Get JSON response and convert to a python dictionary
@@ -90,7 +90,11 @@ class SignUpPage(webapp2.RequestHandler):
     def get(self):
         template=jinja_env.get_template("templates/signup.html")
         self.response.write(template.render())
-
+    def post(self):
+        User(name=self.request.get("nam"),description=self.request.get("desc"),photo=images.resize(self.request.get("pic"),250,250), category=self.request.get("cat"),seller=users.get_current_user().nickname()).put()
+        template=jinja_env.get_template("templates/added.html")
+        self.response.write(template.render())
+        self.redirect("/profile")
 
 app=webapp2.WSGIApplication([
     ("/", MainPage),
