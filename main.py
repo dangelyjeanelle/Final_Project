@@ -3,6 +3,7 @@ import jinja2
 import json
 import os
 import urllib
+import base64
 from google.appengine.api import images
 from google.appengine.ext import ndb
 from google.appengine.api import users
@@ -14,7 +15,7 @@ jinja_env=jinja2.Environment(
 class Product(ndb.Model):
     name=ndb.StringProperty(required=True)
     description=ndb.StringProperty(required=True)
-    seller=ndb.KeyProperty(required=True)
+    seller=ndb.StringProperty(required=False)
     category=ndb.StringProperty(required=False)
     photo=ndb.BlobProperty(required=True)
 
@@ -22,7 +23,7 @@ class UptradeUser(ndb.Model):
     name=ndb.StringProperty(required=True)
     # userid=ndb.IntegerProperty(required=True)
     products=ndb.KeyProperty(kind=Product, required=False, repeated=True)
-    # email=ndb.StringProperty(required=True)  aka nickname
+    # email=ndb.StringProperty(required=True)
     avatar=ndb.BlobProperty(required=False)
 
 class MainPage(webapp2.RequestHandler):
@@ -81,31 +82,26 @@ class Image(webapp2.RequestHandler):
         else:
             self.response.out.write('No image')
 
+
 class ProductPage(webapp2.RequestHandler):
     def get(self):
-        if self.request.get("id"):
-            urlsafe_key=self.request.get("id")
-            key=ndb.Key(urlsafe=urlsafe_key)
-            product=Product.query().filter(Product.key==key).get()
-            template_vars={
-            "product":product
-            }
-            template=jinja_env.get_template("templates/product.html")
-            self.response.write(template.render(template_vars))
-        else:
-            self.redirect("/")
+        template=jinja_env.get_template("templates/product.html")
+        self.response.write(template.render())
 
 class ProfilePage(webapp2.RequestHandler):
     def get(self):
         user=users.get_current_user()
         email_address=user.nickname()
         uptrade_user=UptradeUser.get_by_id(user.user_id())
+        encoded_string = base64.b64encode(uptrade_user.avatar).strip('\n')
         template_vars = {
             "user": uptrade_user.name,
-            "image": uptrade_user.avatar,
+            "image": encoded_string,
             "email_address": email_address,
         }
         template=jinja_env.get_template("templates/profile.html")
+        # self.response.out.write('<div><img src="/img?img_id=%s"></img>' %
+        #                 uptrade_user.avatar.urlsafe())
         self.response.write(template.render(template_vars))
 
 class ExchangePage(webapp2.RequestHandler):
@@ -126,6 +122,7 @@ class ExchangePage(webapp2.RequestHandler):
         }
         template=jinja_env.get_template("templates/exchange.html")
         self.response.write(template.render(template_vars))
+        
 class AddPage(webapp2.RequestHandler):
     def get(self):
         template=jinja_env.get_template("templates/add.html")
@@ -136,7 +133,7 @@ class AddPage(webapp2.RequestHandler):
         description=self.request.get("desc"),
         photo=images.resize(self.request.get("pic"),250,250),
         category=self.request.get("cat"),
-        seller=UptradeUser.get_by_id(users.get_current_user().user_id()).put()).put()
+        seller=UptradeUser.get_by_id(users.get_current_user().user_id()).name()).put()
         template=jinja_env.get_template("templates/added.html")
         self.response.write(template.render())
         self.redirect("/profile")
