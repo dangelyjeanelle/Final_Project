@@ -6,6 +6,8 @@
     <link href="/stylesheets/home.css" rel="stylesheet">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/stylesheets/slider.css">
+
   </head>
   <div id="logoHeader">
     <div id="header">
@@ -31,18 +33,31 @@
         <h3>There are currently no items to trade here</h3>
       {% endif %}
     {% for product in products %}
-      <div class="product-card">
+      <div class="auto-slider">
+        <!-- <figure> -->
+          <ul class="auto-slider__content">
+            <li><a href="/product?id={{product.key.urlsafe()}}"><div class="product-image">
+            <img src="/img?img_id={{product.key.urlsafe()}}"></img></li>
+    <!-- </div>
+      <div class="product-info">
+        <br><h3>{{product.name}}</h3>
+          <h5>Traded by: {{product.seller.get().name}}</h5> <br>
+        </div> -->
+          </a>
+          <div class="product-info">
+            <br><h3>{{product.name}}</h3>
+            <h5>Traded by: {{product.seller.get().name}}</h5> <br>
+          </div></a>
+        </ul>
+      <!-- </figure> -->
+      </div>
+      <!-- <div class="product-card">
         <a href="/product?id={{product.key.urlsafe()}}"><div class="product-image">
           <img src="/img?img_id={{product.key.urlsafe()}}"></img>
-        </div>
-        <div class="product-info">
-          <br><h3>{{product.name}}</h3>
-          <h5>Traded by: {{product.seller.get().name}}</h5> <br>
-        </div></a>
-      </div>
+        </div> -->
+
     {% endfor %}
     </section>
-
     <script>
       let url=new URL(window.location.href);
       let category=url.searchParams.get('category');
@@ -54,5 +69,29 @@
       let active_page=document.getElementById(category);
       active_page.classList.add("active");
     </script>
+
+
+
+
+
+
   </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="auto-slider">
+  <ul class="auto-slider__content">
+    <li><img src="http://lorempixel.com/output/food-q-c-720-360-1.jpg" alt="food-1"></li>
+    <li><img src="http://lorempixel.com/output/food-q-c-720-360-2.jpg" alt="food-2"></li>
+    <li><img src="http://lorempixel.com/output/food-q-c-720-360-3.jpg" alt="food-3"></li>
+    <li><img src="http://lorempixel.com/output/food-q-c-720-360-4.jpg" alt="food-4"></li>
+  </ul>
+</div> -->
