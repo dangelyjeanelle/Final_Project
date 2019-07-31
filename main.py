@@ -15,7 +15,7 @@ jinja_env=jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__))
 )
 
-def send_request_mail(product1_key, product2_key):
+def send_request_mail(exchange_key):
     # pr1=seller   pr2=buyer
     mail.send_mail(sender='UpTrade@up-trade.appspotmail.com'.format(
         app_identity.get_application_id()),
@@ -131,8 +131,6 @@ class ProfilePage(webapp2.RequestHandler):
             "active_page": "Profile",
         }
         template=jinja_env.get_template("templates/profile.html")
-        # self.response.out.write('<div><img src="/img?img_id=%s"></img>' %
-        #                 uptrade_user.avatar.urlsafe())
         self.response.write(template.render(template_vars))
 
 class ExchangePage(webapp2.RequestHandler):
@@ -141,7 +139,7 @@ class ExchangePage(webapp2.RequestHandler):
         api_key="AIzaSyBLIoqzNWJjQ0o_BSnVJ9JoKp34Xas26q0"
         base_url="https://www.googleapis.com/books/v1/volumes"
         params={"q":"Harry Potter",
-        "api_key":api_key,}
+                "api_key":api_key,}
         full_url=base_url+"?"+urllib.urlencode(params)
 
         # Fetch url
@@ -179,6 +177,22 @@ class SignUpPage(webapp2.RequestHandler):
         self.response.write(template.render())
         self.redirect("/profile")
 
+# <<<<<<< HEAD
+# =======
+# class CategoryPage(webapp2.RequestHandler):
+#     def get(self):
+#         if self.request.get("c"):
+#             cat=self.request.get("c")
+#             products=Product.query().filter(ndb.StringProperty("category")==cat).fetch()
+#             template_vars={
+#             "products":products
+#             }
+#             template=jinja_env.get_template("templates/home.html")
+#             self.response.write(template.render(template_vars))
+#         else:
+#             self.redirect("/")
+#
+# >>>>>>> 28df4217e84aa5a848146c90661ee69e9842121e
 class TestPage(webapp2.RequestHandler):
     def get(self):
         send_approved_mail()
@@ -194,4 +208,5 @@ app=webapp2.WSGIApplication([
     ("/signup", SignUpPage),
     ("/img", Image),
     ("/test", TestPage),
+    # ("/category", CategoryPage),
 ], debug=True)
