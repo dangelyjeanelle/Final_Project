@@ -3,6 +3,12 @@ api_version: 1
 threadsafe: true
 
 handlers:
+- url: /favicon\.ico
+  mime_type: image/vnd.microsoft.icon
+  static_files: images/favicon.ico
+  upload: images/favicon\.ico
+- url: /images
+  static_dir: images
 - url: /stylesheets
   static_dir: stylesheets
 - url: /js
