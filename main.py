@@ -107,12 +107,12 @@ class ProductPage(webapp2.RequestHandler):
     def get(self):
         if self.request.get("id"):
             urlsafe_key=self.request.get("id")
-            # current_user=UptradeUser.get_by_id(users.get_current_user().user_id())
+            current_user=UptradeUser.get_by_id(users.get_current_user().user_id())
             key=ndb.Key(urlsafe=urlsafe_key)
             product=Product.query().filter(Product.key==key).get()
             template_vars={
             "product":product,
-            # "current_user":current_user
+            "current_user":current_user
             }
             template=jinja_env.get_template("templates/product.html")
             self.response.write(template.render(template_vars))
