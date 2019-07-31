@@ -31,7 +31,7 @@ The example.com Team
 class Product(ndb.Model):
     name=ndb.StringProperty(required=True)
     description=ndb.StringProperty(required=True)
-    seller=ndb.KeyProperty(required=False)
+    seller=ndb.KeyProperty(required=True)
     category=ndb.StringProperty(required=False)
     photo=ndb.BlobProperty(required=True)
 
@@ -48,7 +48,15 @@ class Exchange(ndb.Model):
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
-        pro=Product.query().fetch()
+        # Read the "category" URL parameter
+        category=self.request.get("category")
+
+        # Based on the category, filter the Product query
+        if category:
+            pro=Product.query().filter(ndb.StringProperty("category")==category).fetch()
+        else:
+            pro=Product.query().fetch()
+
         user=users.get_current_user()
         if user:
             email_address=user.nickname()
@@ -60,15 +68,6 @@ class MainPage(webapp2.RequestHandler):
               signout_link_html))
             else:
                 self.redirect("/signup")
-            #     self.response.write('''
-            # Welcome to UpTrade, %s!  Please sign up! <br>
-            # <form class="" action="" enctype="multipart/form-data" method="post">
-            # Full name: <input type="text" name="name"><br>
-            # Upload your profile picture:
-            # <input type="file" name="pic" accept="image/*" value="">
-            # <input type="submit">
-            # </form><br> %s <br>
-            # ''' % (email_address, signout_link_html))
         else:
             self.response.write('''
         Please log in! <br>
@@ -76,9 +75,10 @@ class MainPage(webapp2.RequestHandler):
           users.create_login_url('/')))
         signin_link=users.create_login_url("/")
         template_vars={
-        "current_user":user,
-        "signin_link":signin_link,
-        "products":pro
+            "current_user":user,
+            "signin_link":signin_link,
+            "products":pro,
+            "title": category,
         }
         template=jinja_env.get_template("templates/home.html")
         self.response.write(template.render(template_vars))
@@ -107,10 +107,12 @@ class ProductPage(webapp2.RequestHandler):
     def get(self):
         if self.request.get("id"):
             urlsafe_key=self.request.get("id")
+            current_user=UptradeUser.get_by_id(users.get_current_user().user_id())
             key=ndb.Key(urlsafe=urlsafe_key)
             product=Product.query().filter(Product.key==key).get()
             template_vars={
-            "product":product
+            "product":product,
+            "current_user":current_user
             }
             template=jinja_env.get_template("templates/product.html")
             self.response.write(template.render(template_vars))
@@ -127,40 +129,42 @@ class ProfilePage(webapp2.RequestHandler):
             "user": uptrade_user.name,
             "image": encoded_string,
             "email_address": email_address,
+            "title": "Profile",
+            "active_page": "Profile",
         }
         template=jinja_env.get_template("templates/profile.html")
         self.response.write(template.render(template_vars))
 
 class ExchangePage(webapp2.RequestHandler):
     def get(self):
-        # Set up key and url
-        api_key="AIzaSyBLIoqzNWJjQ0o_BSnVJ9JoKp34Xas26q0"
-        base_url="https://www.googleapis.com/books/v1/volumes"
-        params={"q":"Harry Potter",
-                "api_key":api_key,}
-        full_url=base_url+"?"+urllib.urlencode(params)
-
-        # Fetch url
-        books_response=urlfetch.fetch(full_url).content
-        # Get JSON response and convert to a python dictionary
-        books_dictionary=json.loads(books_response)
-        template_vars={
-        "books":books_dictionary["items"]
-        }
-        template=jinja_env.get_template("templates/exchange.html")
-        self.response.write(template.render(template_vars))
+        if self.request.get("p1"):
+            urlsafe_p1=self.request.get("p1")
+            p1=ndb.Key(urlsafe=urlsafe_p1)
+            user=UptradeUser.get_by_id(users.get_current_user().user_id())
+            exchange=Exchange()
+            template_vars={
+            "product1":p1,
+            "current_user":user
+            }
+            template=jinja_env.get_template("templates/exchange.html")
+            self.response.write(template.render(template_vars))
+        else:
+            self.redirect("/")
 
 class AddPage(webapp2.RequestHandler):
     def get(self):
         template=jinja_env.get_template("templates/add.html")
         self.response.write(template.render())
     def post(self):
-        Product(
+        new=Product(
         name=self.request.get("nam"),
         description=self.request.get("desc"),
         photo=images.resize(self.request.get("pic"),250,250),
         category=self.request.get("cat"),
         seller=UptradeUser.get_by_id(users.get_current_user().user_id()).put()).put()
+        user=UptradeUser.get_by_id(users.get_current_user().user_id())
+        user.products.append(new)
+        user.put()
         template=jinja_env.get_template("templates/added.html")
         self.response.write(template.render())
         self.redirect("/")
@@ -174,19 +178,6 @@ class SignUpPage(webapp2.RequestHandler):
         template=jinja_env.get_template("templates/added.html")
         self.response.write(template.render())
         self.redirect("/profile")
-
-class CategoryPage(webapp2.RequestHandler):
-    def get(self):
-        if self.request.get("c"):
-            cat=self.request.get("c")
-            products=Product.query().filter(ndb.StringProperty("category")==cat).fetch()
-            template_vars={
-            "products":products
-            }
-            template=jinja_env.get_template("templates/home.html")
-            self.response.write(template.render(template_vars))
-        else:
-            self.redirect("/")
 
 class TestPage(webapp2.RequestHandler):
     def get(self):
@@ -203,5 +194,4 @@ app=webapp2.WSGIApplication([
     ("/signup", SignUpPage),
     ("/img", Image),
     ("/test", TestPage),
-    ("/category", CategoryPage),
 ], debug=True)

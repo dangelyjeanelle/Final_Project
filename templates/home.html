@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>UpTrade 🌿</title>
+    <title>UpTrade 🌿{{title}}</title>
     <link href="/stylesheets/home.css" rel="stylesheet">
   </head>
   <div id="logoHeader">
@@ -11,12 +11,25 @@
     </div>
   </div>
   <ul>
+<<<<<<< HEAD
     <li style-"float:right"><a href="/"><img src="/stylesheets/leaves.png" alt"leaves" height="18" width="18"/> Home</a></li>
+=======
+<!-- <<<<<<< HEAD -->
+    <li style-"float:right"><a id="Home" href="/"><img src="/stylesheets/leaves.png" alt"leaves" height="18" width="18"/> Home</a></li>
+    <li><a id="Accessories" href="/?category=Accessories"><img src="/stylesheets/leaves.png" alt"leaves" height="18" width="18"/> Accessories</a></li>
+    <li><a id="Clothing" href="/?category=Clothing"><img src="/stylesheets/leaves.png" alt"leaves" height="18" width="18"/> Clothing</a></li>
+    <li><a id="Decoration" href="/?category=Decoration"><img src="/stylesheets/leaves.png" alt"leaves" height="18" width="18"/> Decoration</a></li>
+    <li><a id="Office" href="/?category=Office"><img src="/stylesheets/leaves.png" alt"leaves" height="18" width="18"/> Office Supplies</a></li>
+    <li><a id="Other" href="/?category=Other"><img src="/stylesheets/leaves.png" alt"leaves" height="18" width="18"/> Other</a></li>
+<!-- =======
+    <li style-"float:right"><a class="active" href="/"><img src="/stylesheets/leaves.png" alt"leaves" height="18" width="18"/> Home</a></li>
+>>>>>>> 23df45a51549ea87faf9d544910f56283c0830ec
     <li><a href="/category?c=Accessories"><img src="/stylesheets/leaves.png" alt"leaves" height="18" width="18"/> Accessories</a></li>
     <li><a href="/category?c=Clothing"><img src="/stylesheets/leaves.png" alt"leaves" height="18" width="18"/> Clothing</a></li>
     <li><a href="/category?c=Decoration"><img src="/stylesheets/leaves.png" alt"leaves" height="18" width="18"/> Decoration</a></li>
     <li><a href="/category?c=Office"><img src="/stylesheets/leaves.png" alt"leaves" height="18" width="18"/> Office Supplies</a></li>
     <li><a href="/category?c=Other"><img src="/stylesheets/leaves.png" alt"leaves" height="18" width="18"/> Other</a></li>
+>>>>>>> 28df4217e84aa5a848146c90661ee69e9842121e -->
     <li style="float:right"><a href="/profile"><img src="/stylesheets/leaves.png" alt"leaves" height="18" width="18"/> Profile</a></li>
 </div>
 </li>
@@ -28,7 +41,6 @@
       {% if products|length==0 %}
         <h3>There are currently no items to trade here</h3>
       {% endif %}
-  <!-- <a href="{{signin_link}}">Login</a><br><br><br> -->
     {% for product in products %}
       <div class="product-card">
         <a href="/product?id={{product.key.urlsafe()}}"><div class="product-image">
@@ -36,15 +48,22 @@
         </div>
         <div class="product-info">
           <br><h3>{{product.name}}</h3>
+          <h5>Traded by: {{product.seller.get().name}}</h5> <br>
         </div></a>
-        <!-- <div class="product-image">
-          <img src="/img?img_id={{product.key.urlsafe()}}"></img>
-        </div>
-        <div class="product-info">
-          <br><h3>{{product.name}}</h3>
-        </div> -->
       </div>
     {% endfor %}
     </section>
+
+    <script>
+      let url=new URL(window.location.href);
+      let category=url.searchParams.get('category');
+
+      if (category===null){
+        category='Home';
+      }
+
+      let active_page=document.getElementById(category);
+      active_page.classList.add("active");
+    </script>
   </body>
 </html>
