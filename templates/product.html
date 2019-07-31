@@ -5,7 +5,7 @@
     <title>UpTrade 🌿Products</title>
     <link href="/stylesheets/home.css" rel="stylesheet">
     <link rel="stylesheet" href="/stylesheets/signup.css">
-    
+
   </head>
   <div id="logoHeader">
     <div id="header">
@@ -29,7 +29,12 @@
     {% if product.seller.get()!=current_user %}
     <button type="button" class="registerbtn"><a href="/exchange?p1={{product.key.urlsafe()}}">Exchange</a></button>
     {% else %}
-    This is your product. You cannot trade for it
+    <script>
+      document.getElementById("myBtn").addEventListener("click", displayAlert);
+      function displayAlert() {
+        document.getElementById("demo").innerHTML = "This is your product. You cannot trade for it."
+      }
+      </script>
     <button type="button" class="registerbtn"><a href="/">Go back to the home page</a></button>
     {% endif %}
   </body>

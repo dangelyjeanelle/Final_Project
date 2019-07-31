@@ -1,0 +1,86 @@
+body, html, ul, li, img, div{
+  margin:0; padding:0;
+}
+body{
+  width:80%;
+  margin: 50px auto;
+}
+
+.auto-slider{
+  overflow: hidden;
+}
+
+.auto-slider__content{
+  list-style:none;
+  display:flex;
+  background-color: white;
+  animation: slide 10s ease-in-out infinite;
+/*   animation-direction: alternate-reverse; */
+}
+.auto-slider__content:hover{
+  animation-play-state:paused;
+}
+
+@keyframes slide{
+  10%{
+    transform:translateX(0);
+  }
+  15%, 30%{
+    transform:translateX(-720px);
+  }
+  35%, 50%{
+    transform:translateX(-1440px);
+  }
+  55%, 70%{
+    transform:translateX(-2160px);
+  }
+  75%, 90%{
+    transform:translateX(0);
+  }
+
+}
+
+
+
+
+
+
+/* #slide {
+  overflow: hidden;
+}
+
+#slider figure {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  left: 0;
+  text-align: left;
+  font-size: 0;
+  animation: 20s slider infinite;
+}
+
+#slider figure img {
+  width: 20%;
+  float: left;
+}
+
+@keyframes slider {
+  0% {
+    left: 0;
+  }
+  20% {
+    left: 0;
+  }
+  25% {
+    left: -100%;
+  }
+  45% {
+    left: -100%;
+  }
+  50% {
+    left: -200%;
+  }
+  70% {
+    left: -200%;
+  }
+} */
