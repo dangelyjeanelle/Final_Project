@@ -14,6 +14,7 @@ from google.appengine.api import urlfetch
 jinja_env=jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__))
 )
+
 def send_request_mail(product1_key, product2_key):
     # pr1=seller   pr2=buyer
     mail.send_mail(sender='UpTrade@up-trade.appspotmail.com'.format(
@@ -30,7 +31,7 @@ The example.com Team
 class Product(ndb.Model):
     name=ndb.StringProperty(required=True)
     description=ndb.StringProperty(required=True)
-    seller=ndb.StringProperty(required=False)
+    seller=ndb.KeyProperty(required=False)
     category=ndb.StringProperty(required=False)
     photo=ndb.BlobProperty(required=True)
 
@@ -104,8 +105,17 @@ class Image(webapp2.RequestHandler):
 
 class ProductPage(webapp2.RequestHandler):
     def get(self):
-        template=jinja_env.get_template("templates/product.html")
-        self.response.write(template.render())
+        if self.request.get("id"):
+            urlsafe_key=self.request.get("id")
+            key=ndb.Key(urlsafe=urlsafe_key)
+            product=Product.query().filter(Product.key==key).get()
+            template_vars={
+            "product":product
+            }
+            template=jinja_env.get_template("templates/product.html")
+            self.response.write(template.render(template_vars))
+        else:
+            self.redirect("/")
 
 class ProfilePage(webapp2.RequestHandler):
     def get(self):
@@ -152,10 +162,10 @@ class AddPage(webapp2.RequestHandler):
         description=self.request.get("desc"),
         photo=images.resize(self.request.get("pic"),250,250),
         category=self.request.get("cat"),
-        seller=UptradeUser.get_by_id(users.get_current_user().user_id()).name()).put()
+        seller=UptradeUser.get_by_id(users.get_current_user().user_id()).put()).put()
         template=jinja_env.get_template("templates/added.html")
         self.response.write(template.render())
-        self.redirect("/profile")
+        self.redirect("/")
 
 class SignUpPage(webapp2.RequestHandler):
     def get(self):
@@ -173,7 +183,7 @@ class ClothingPage(webapp2.RequestHandler):
         template_vars={
         "products":pro
         }
-        template=jinja_env.get_template("templates/clothing.html")
+        template=jinja_env.get_template("templates/home.html")
         self.response.write(template.render(template_vars))
 
 class DecorationPage(webapp2.RequestHandler):
@@ -182,7 +192,7 @@ class DecorationPage(webapp2.RequestHandler):
         template_vars={
         "products":pro
         }
-        template=jinja_env.get_template("templates/decoration.html")
+        template=jinja_env.get_template("templates/home.html")
         self.response.write(template.render(template_vars))
 
 class AccessoriesPage(webapp2.RequestHandler):
@@ -191,7 +201,7 @@ class AccessoriesPage(webapp2.RequestHandler):
         template_vars={
         "products":pro
         }
-        template=jinja_env.get_template("templates/accesories.html")
+        template=jinja_env.get_template("templates/home.html")
         self.response.write(template.render(template_vars))
 
 class OfficePage(webapp2.RequestHandler):
@@ -200,7 +210,7 @@ class OfficePage(webapp2.RequestHandler):
         template_vars={
         "products":pro
         }
-        template=jinja_env.get_template("templates/office.html")
+        template=jinja_env.get_template("templates/home.html")
         self.response.write(template.render(template_vars))
 
 class OtherPage(webapp2.RequestHandler):
@@ -209,7 +219,7 @@ class OtherPage(webapp2.RequestHandler):
         template_vars={
         "products":pro
         }
-        template=jinja_env.get_template("templates/other.html")
+        template=jinja_env.get_template("templates/home.html")
         self.response.write(template.render(template_vars))
 
 class TestPage(webapp2.RequestHandler):

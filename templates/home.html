@@ -25,7 +25,9 @@
   <body>
     <br>
     <section class="products">
-
+      {% if products|length==0 %}
+        <h3>There are currently no items to trade here</h3>
+      {% endif %}
   <!-- <a href="{{signin_link}}">Login</a><br><br><br> -->
     {% for product in products %}
       <div class="product-card">
