@@ -22,7 +22,8 @@
   <body><br>
     <img src="/img?img_id={{product.key.urlsafe()}}"></img>
     <h3>{{product.name}}</h3>
+    <h5>Traded by: {{product.seller.get().name}}</h5>
     <p>{{product.description}}</p>
-    <button type="button" class="registerbtn"><a href="/exchange">Exchange</a></button>
+    <button type="button" class="registerbtn"><a href="/exchange?p1={{product.key.urlsafe()}}">Exchange</a></button>
   </body>
 </html>

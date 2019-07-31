@@ -31,7 +31,7 @@ The example.com Team
 class Product(ndb.Model):
     name=ndb.StringProperty(required=True)
     description=ndb.StringProperty(required=True)
-    seller=ndb.KeyProperty(required=False)
+    seller=ndb.KeyProperty(required=True)
     category=ndb.StringProperty(required=False)
     photo=ndb.BlobProperty(required=True)
 
@@ -107,10 +107,12 @@ class ProductPage(webapp2.RequestHandler):
     def get(self):
         if self.request.get("id"):
             urlsafe_key=self.request.get("id")
+            # current_user=UptradeUser.get_by_id(users.get_current_user().user_id())
             key=ndb.Key(urlsafe=urlsafe_key)
             product=Product.query().filter(Product.key==key).get()
             template_vars={
-            "product":product
+            "product":product,
+            # "current_user":current_user
             }
             template=jinja_env.get_template("templates/product.html")
             self.response.write(template.render(template_vars))
@@ -135,34 +137,34 @@ class ProfilePage(webapp2.RequestHandler):
 
 class ExchangePage(webapp2.RequestHandler):
     def get(self):
-        # Set up key and url
-        api_key="AIzaSyBLIoqzNWJjQ0o_BSnVJ9JoKp34Xas26q0"
-        base_url="https://www.googleapis.com/books/v1/volumes"
-        params={"q":"Harry Potter",
-        "api_key":api_key,}
-        full_url=base_url+"?"+urllib.urlencode(params)
-
-        # Fetch url
-        books_response=urlfetch.fetch(full_url).content
-        # Get JSON response and convert to a python dictionary
-        books_dictionary=json.loads(books_response)
-        template_vars={
-        "books":books_dictionary["items"]
-        }
-        template=jinja_env.get_template("templates/exchange.html")
-        self.response.write(template.render(template_vars))
+        if self.request.get("p1"):
+            urlsafe_p1=self.request.get("p1")
+            p1=ndb.Key(urlsafe=urlsafe_p1)
+            user=UptradeUser.get_by_id(users.get_current_user().user_id())
+            exchange=Exchange()
+            template_vars={
+            "product1":p1,
+            "current_user":user
+            }
+            template=jinja_env.get_template("templates/exchange.html")
+            self.response.write(template.render(template_vars))
+        else:
+            self.redirect("/")
 
 class AddPage(webapp2.RequestHandler):
     def get(self):
         template=jinja_env.get_template("templates/add.html")
         self.response.write(template.render())
     def post(self):
-        Product(
+        new=Product(
         name=self.request.get("nam"),
         description=self.request.get("desc"),
         photo=images.resize(self.request.get("pic"),250,250),
         category=self.request.get("cat"),
         seller=UptradeUser.get_by_id(users.get_current_user().user_id()).put()).put()
+        user=UptradeUser.get_by_id(users.get_current_user().user_id())
+        user.products.append(new)
+        user.put()
         template=jinja_env.get_template("templates/added.html")
         self.response.write(template.render())
         self.redirect("/")
