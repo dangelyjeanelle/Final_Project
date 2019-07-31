@@ -18,7 +18,7 @@ div#logoHeader div#header img {
 }
 
 body {
-  background-color: white;
+  background-image: linear-gradient(white, white, #ccdfb8, #c0d8a7);
   color: black;
   font-family: Georgia;
   font-size: 20px;
