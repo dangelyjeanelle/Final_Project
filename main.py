@@ -48,7 +48,15 @@ class Exchange(ndb.Model):
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
-        pro=Product.query().fetch()
+        # Read the "category" URL parameter
+        category=self.request.get("category")
+
+        # Based on the category, filter the Product query
+        if category:
+            pro=Product.query().filter(ndb.StringProperty("category")==category).fetch()
+        else:
+            pro=Product.query().fetch()
+
         user=users.get_current_user()
         if user:
             email_address=user.nickname()
@@ -60,15 +68,6 @@ class MainPage(webapp2.RequestHandler):
               signout_link_html))
             else:
                 self.redirect("/signup")
-            #     self.response.write('''
-            # Welcome to UpTrade, %s!  Please sign up! <br>
-            # <form class="" action="" enctype="multipart/form-data" method="post">
-            # Full name: <input type="text" name="name"><br>
-            # Upload your profile picture:
-            # <input type="file" name="pic" accept="image/*" value="">
-            # <input type="submit">
-            # </form><br> %s <br>
-            # ''' % (email_address, signout_link_html))
         else:
             self.response.write('''
         Please log in! <br>
@@ -76,9 +75,10 @@ class MainPage(webapp2.RequestHandler):
           users.create_login_url('/')))
         signin_link=users.create_login_url("/")
         template_vars={
-        "current_user":user,
-        "signin_link":signin_link,
-        "products":pro
+            "current_user":user,
+            "signin_link":signin_link,
+            "products":pro,
+            "title": category,
         }
         template=jinja_env.get_template("templates/home.html")
         self.response.write(template.render(template_vars))
@@ -127,6 +127,8 @@ class ProfilePage(webapp2.RequestHandler):
             "user": uptrade_user.name,
             "image": encoded_string,
             "email_address": email_address,
+            "title": "Profile",
+            "active_page": "Profile",
         }
         template=jinja_env.get_template("templates/profile.html")
         # self.response.out.write('<div><img src="/img?img_id=%s"></img>' %
@@ -177,51 +179,6 @@ class SignUpPage(webapp2.RequestHandler):
         self.response.write(template.render())
         self.redirect("/profile")
 
-class ClothingPage(webapp2.RequestHandler):
-    def get(self):
-        pro=Product.query().filter(ndb.StringProperty("category")=="Clothing").fetch()
-        template_vars={
-        "products":pro
-        }
-        template=jinja_env.get_template("templates/home.html")
-        self.response.write(template.render(template_vars))
-
-class DecorationPage(webapp2.RequestHandler):
-    def get(self):
-        pro=Product.query().filter(ndb.StringProperty("category")=="Decoration").fetch()
-        template_vars={
-        "products":pro
-        }
-        template=jinja_env.get_template("templates/home.html")
-        self.response.write(template.render(template_vars))
-
-class AccessoriesPage(webapp2.RequestHandler):
-    def get(self):
-        pro=Product.query().filter(ndb.StringProperty("category")=="Accessories").fetch()
-        template_vars={
-        "products":pro
-        }
-        template=jinja_env.get_template("templates/home.html")
-        self.response.write(template.render(template_vars))
-
-class OfficePage(webapp2.RequestHandler):
-    def get(self):
-        pro=Product.query().filter(ndb.StringProperty("category")=="Office").fetch()
-        template_vars={
-        "products":pro
-        }
-        template=jinja_env.get_template("templates/home.html")
-        self.response.write(template.render(template_vars))
-
-class OtherPage(webapp2.RequestHandler):
-    def get(self):
-        pro=Product.query().filter(ndb.StringProperty("category")=="Other").fetch()
-        template_vars={
-        "products":pro
-        }
-        template=jinja_env.get_template("templates/home.html")
-        self.response.write(template.render(template_vars))
-
 class TestPage(webapp2.RequestHandler):
     def get(self):
         send_approved_mail()
@@ -236,10 +193,5 @@ app=webapp2.WSGIApplication([
     ("/add", AddPage),
     ("/signup", SignUpPage),
     ("/img", Image),
-    ("/clothing", ClothingPage),
-    ("/decoration", DecorationPage),
-    ("/accessories", AccessoriesPage),
-    ("/office", OfficePage),
-    ("/other", OtherPage),
     ("/test", TestPage),
 ], debug=True)
