@@ -15,7 +15,7 @@ jinja_env=jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__))
 )
 
-def send_request_mail(product1_key, product2_key):
+def send_request_mail(exchange_key):
     # pr1=seller   pr2=buyer
     mail.send_mail(sender='UpTrade@up-trade.appspotmail.com'.format(
         app_identity.get_application_id()),
