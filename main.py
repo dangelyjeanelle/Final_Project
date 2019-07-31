@@ -179,22 +179,6 @@ class SignUpPage(webapp2.RequestHandler):
         self.response.write(template.render())
         self.redirect("/profile")
 
-# <<<<<<< HEAD
-# =======
-# class CategoryPage(webapp2.RequestHandler):
-#     def get(self):
-#         if self.request.get("c"):
-#             cat=self.request.get("c")
-#             products=Product.query().filter(ndb.StringProperty("category")==cat).fetch()
-#             template_vars={
-#             "products":products
-#             }
-#             template=jinja_env.get_template("templates/home.html")
-#             self.response.write(template.render(template_vars))
-#         else:
-#             self.redirect("/")
-#
-# >>>>>>> 28df4217e84aa5a848146c90661ee69e9842121e
 class TestPage(webapp2.RequestHandler):
     def get(self):
         send_approved_mail()
@@ -210,5 +194,4 @@ app=webapp2.WSGIApplication([
     ("/signup", SignUpPage),
     ("/img", Image),
     ("/test", TestPage),
-    # ("/category", CategoryPage),
 ], debug=True)
