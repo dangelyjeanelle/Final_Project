@@ -129,8 +129,6 @@ class ProfilePage(webapp2.RequestHandler):
             "email_address": email_address,
         }
         template=jinja_env.get_template("templates/profile.html")
-        # self.response.out.write('<div><img src="/img?img_id=%s"></img>' %
-        #                 uptrade_user.avatar.urlsafe())
         self.response.write(template.render(template_vars))
 
 class ExchangePage(webapp2.RequestHandler):
@@ -139,7 +137,7 @@ class ExchangePage(webapp2.RequestHandler):
         api_key="AIzaSyBLIoqzNWJjQ0o_BSnVJ9JoKp34Xas26q0"
         base_url="https://www.googleapis.com/books/v1/volumes"
         params={"q":"Harry Potter",
-        "api_key":api_key,}
+                "api_key":api_key,}
         full_url=base_url+"?"+urllib.urlencode(params)
 
         # Fetch url
