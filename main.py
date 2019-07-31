@@ -3,6 +3,8 @@ import jinja2
 import json
 import os
 import urllib
+from google.appengine.api import app_identity
+from google.appengine.api import mail
 import base64
 from google.appengine.api import images
 from google.appengine.ext import ndb
@@ -12,6 +14,19 @@ from google.appengine.api import urlfetch
 jinja_env=jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__))
 )
+def send_request_mail(product1_key, product2_key):
+    # pr1=seller   pr2=buyer
+    mail.send_mail(sender='UpTrade@up-trade.appspotmail.com'.format(
+        app_identity.get_application_id()),
+                   to=product1_key.get().seller.get().nickname,
+                   subject="Your have a trade request!",
+                   body="Dear "+product1_key.get().seller.get().name+""":
+    You got a trade request from"""+product2_key.get().seller.get().name+""" on UpTrade. You can now visit
+https://up-trade.appspot.com/exchange? and sign in using your Google Account to access new features.
+Please let us know if you have any questions.
+The example.com Team
+""")
+
 class Product(ndb.Model):
     name=ndb.StringProperty(required=True)
     description=ndb.StringProperty(required=True)
@@ -25,6 +40,10 @@ class UptradeUser(ndb.Model):
     products=ndb.KeyProperty(kind=Product, required=False, repeated=True)
     # email=ndb.StringProperty(required=True)
     avatar=ndb.BlobProperty(required=False)
+
+class Exchange(ndb.Model):
+    product1=ndb.KeyProperty(required=True)
+    product2=ndb.KeyProperty(required=True)
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
@@ -122,7 +141,7 @@ class ExchangePage(webapp2.RequestHandler):
         }
         template=jinja_env.get_template("templates/exchange.html")
         self.response.write(template.render(template_vars))
-        
+
 class AddPage(webapp2.RequestHandler):
     def get(self):
         template=jinja_env.get_template("templates/add.html")
@@ -172,7 +191,7 @@ class AccessoriesPage(webapp2.RequestHandler):
         template_vars={
         "products":pro
         }
-        template=jinja_env.get_template("templates/accessories.html")
+        template=jinja_env.get_template("templates/accesories.html")
         self.response.write(template.render(template_vars))
 
 class OfficePage(webapp2.RequestHandler):
@@ -193,6 +212,12 @@ class OtherPage(webapp2.RequestHandler):
         template=jinja_env.get_template("templates/other.html")
         self.response.write(template.render(template_vars))
 
+class TestPage(webapp2.RequestHandler):
+    def get(self):
+        send_approved_mail()
+        self.response.content_type = 'text/plain'
+        self.response.write('Sent an email.')
+
 app=webapp2.WSGIApplication([
     ("/", MainPage),
     ("/product", ProductPage),
@@ -206,4 +231,5 @@ app=webapp2.WSGIApplication([
     ("/accessories", AccessoriesPage),
     ("/office", OfficePage),
     ("/other", OtherPage),
+    ("/test", TestPage),
 ], debug=True)
