@@ -131,8 +131,6 @@ class ProfilePage(webapp2.RequestHandler):
             "email_address": email_address,
         }
         template=jinja_env.get_template("templates/profile.html")
-        # self.response.out.write('<div><img src="/img?img_id=%s"></img>' %
-        #                 uptrade_user.avatar.urlsafe())
         self.response.write(template.render(template_vars))
 
 class ExchangePage(webapp2.RequestHandler):
