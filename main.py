@@ -177,50 +177,18 @@ class SignUpPage(webapp2.RequestHandler):
         self.response.write(template.render())
         self.redirect("/profile")
 
-class ClothingPage(webapp2.RequestHandler):
+class CategoryPage(webapp2.RequestHandler):
     def get(self):
-        pro=Product.query().filter(ndb.StringProperty("category")=="Clothing").fetch()
-        template_vars={
-        "products":pro
-        }
-        template=jinja_env.get_template("templates/home.html")
-        self.response.write(template.render(template_vars))
-
-class DecorationPage(webapp2.RequestHandler):
-    def get(self):
-        pro=Product.query().filter(ndb.StringProperty("category")=="Decoration").fetch()
-        template_vars={
-        "products":pro
-        }
-        template=jinja_env.get_template("templates/home.html")
-        self.response.write(template.render(template_vars))
-
-class AccessoriesPage(webapp2.RequestHandler):
-    def get(self):
-        pro=Product.query().filter(ndb.StringProperty("category")=="Accessories").fetch()
-        template_vars={
-        "products":pro
-        }
-        template=jinja_env.get_template("templates/home.html")
-        self.response.write(template.render(template_vars))
-
-class OfficePage(webapp2.RequestHandler):
-    def get(self):
-        pro=Product.query().filter(ndb.StringProperty("category")=="Office").fetch()
-        template_vars={
-        "products":pro
-        }
-        template=jinja_env.get_template("templates/home.html")
-        self.response.write(template.render(template_vars))
-
-class OtherPage(webapp2.RequestHandler):
-    def get(self):
-        pro=Product.query().filter(ndb.StringProperty("category")=="Other").fetch()
-        template_vars={
-        "products":pro
-        }
-        template=jinja_env.get_template("templates/home.html")
-        self.response.write(template.render(template_vars))
+        if self.request.get("c"):
+            cat=self.request.get("c")
+            products=Product.query().filter(ndb.StringProperty("category")==cat).fetch()
+            template_vars={
+            "products":products
+            }
+            template=jinja_env.get_template("templates/home.html")
+            self.response.write(template.render(template_vars))
+        else:
+            self.redirect("/")
 
 class TestPage(webapp2.RequestHandler):
     def get(self):
@@ -236,10 +204,6 @@ app=webapp2.WSGIApplication([
     ("/add", AddPage),
     ("/signup", SignUpPage),
     ("/img", Image),
-    ("/clothing", ClothingPage),
-    ("/decoration", DecorationPage),
-    ("/accessories", AccessoriesPage),
-    ("/office", OfficePage),
-    ("/other", OtherPage),
     ("/test", TestPage),
+    ("/category", CategoryPage),
 ], debug=True)
