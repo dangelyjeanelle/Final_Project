@@ -67,7 +67,24 @@ body {
   font-size: 20px;
 }
 
-ul {
+ul .categories {
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background-color: #451b04;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  font-family: Georgia;
+  font-size: 20px;
+}
+
+.spacer {
+  flex-grow: 0.95;
+}
+
+ul .profile {
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -76,10 +93,12 @@ ul {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
+  font-family: Georgia;
+  font-size: 20px;
 }
 
-li {
-  float: left;
+ul .profile:hover {
+  overflow: visible;
 }
 
 li a {
