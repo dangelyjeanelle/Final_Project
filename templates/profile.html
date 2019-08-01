@@ -7,37 +7,36 @@
     <link rel="stylesheet" href="/stylesheets/profile.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link href="/stylesheets/home.css" rel="stylesheet">
-
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   </head>
-  <body>
+   <body>
     <div id="logoHeader">
       <div id="header">
-        <img src="/images/UpTradeLogo.png" alt"logo" />
+       <a href="/"><img src="/images/UpTradeLogo.png" alt="logo"/></a>
       </div>
+   </div>
+   <ul>
+    <div class="categories">
+      <li><a id="Home" href="/"><img src="/images/leaves.png" alt="leaves" height="18" width="18"/> Home</a></li>
+      <li><a id="Accessories" href="/?category=Accessories"><img src="/images/leaves.png" alt="leaves" height="18" width="18"/> Accessories</a></li>
+      <li><a id="Clothing" href="/?category=Clothing"><img src="/images/leaves.png" alt="leaves" height="18" width="18"/> Clothing</a></li>
+      <li><a id="Decoration" href="/?category=Decoration"><img src="/images/leaves.png" alt="leaves" height="18" width="18"/> Decoration</a></li>
+      <li><a id="Office" href="/?category=Office"><img src="/images/leaves.png" alt="leaves" height="18" width="18"/> Office Supplies</a></li>
+      <li><a id="Other" href="/?category=Other"><img src="/images/leaves.png" alt="leaves" height="18" width="18"/> Other</a></li>
+      <div class="spacer"></div>
+      <li class="dropdown profile">
+        <a href="javascript:void(0)" class="dropbtn"><img src="/images/leaves.png" alt="leaves" height="18" width="18"/> Profile</a>
+        <div class="dropdown-content">
+          <a href="/profile">View Profile</a>
+          <a href="/add">Add Product</a>
+          <a href="/profile">Delete Profile</a>
+       </div>
+      </li>
     </div>
-    <ul>
-      <div class="categories">
-        <li><a id="Home" href="/"><img src="/images/leaves.png" alt="leaves" height="18" width="18"/> Home</a></li>
-        <li><a id="Accessories" href="/?category=Accessories"><img src="/images/leaves.png" alt="leaves" height="18" width="18"/> Accessories</a></li>
-        <li><a id="Clothing" href="/?category=Clothing"><img src="/images/leaves.png" alt="leaves" height="18" width="18"/> Clothing</a></li>
-        <li><a id="Decoration" href="/?category=Decoration"><img src="/images/leaves.png" alt="leaves" height="18" width="18"/> Decoration</a></li>
-        <li><a id="Office" href="/?category=Office"><img src="/images/leaves.png" alt="leaves" height="18" width="18"/> Office Supplies</a></li>
-        <li><a id="Other" href="/?category=Other"><img src="/images/leaves.png" alt="leaves" height="18" width="18"/> Other</a></li>
-        <div class="spacer"></div>
-        <li class="dropdown profile">
-          <a href="javascript:void(0)" class="dropbtn"><img src="/images/leaves.png" alt="leaves" height="18" width="18"/> Profile</a>
-          <div class="dropdown-content">
-            <a href="/profile">View Profile</a>
-            <a href="/add">Add Product</a>
-            <a href="/profile">Delete Profile</a>
-          </div>
-        </li>
-      </div>
     </ul>
-    <a class="btn btn-primary btn-xs" href="/add" role="button">Add Product</a>
-
+<br>
+<br>
   <div class="profile-card">
     <div class="image-container">
 
@@ -58,8 +57,5 @@
       </div>
        -->
     </div>
-  </div>
-
-
-  </body>
+  </div>  </body>
 </html>

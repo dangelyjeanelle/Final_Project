@@ -52,12 +52,9 @@ ul .profile {
   font-family: Georgia;
   font-size: 20px;
 }
+
 ul .profile:hover {
   overflow: visible;
-}
-
-li {
-  /* float: left; */
 }
 
 li a, .dropbtn {
