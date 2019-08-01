@@ -32,6 +32,8 @@ ul {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
+  font-family: Georgia;
+  font-size: 20px;
 }
 
 li {
