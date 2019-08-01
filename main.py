@@ -18,16 +18,14 @@ jinja_env=jinja2.Environment(
 def send_request_mail(exchange_key):
     product1=exchange_key.get().product1
     product2=exchange_key.get().product2
-    url="https://up-trade.appspot.com/exchange?"+str(exchange_key.urlsafe())
+    url="https://up-trade.appspot.com/review?"+str(exchange_key.urlsafe())
+    body = """Dear %s:\n You got a trade request from %s on UpTrade. You can now visit %s to accept or decline the trading offer.\n\nThe UpTrade Team""" % (product1.get().seller.get().name, product2.get().seller.get().name, url)
+    html= """Dear %s:<br> &nbsp; You got a trade request from %s on UpTrade. You can now visit <a href="%s">UpTrade</a> to accept or decline the trading offer.<br><br>The UpTrade Team""" % (product1.get().seller.get().name, product2.get().seller.get().name, url)
     mail.send_mail(sender='UpTrade@up-trade.appspotmail.com'.format(
         app_identity.get_application_id()),
                    to=product1.get().seller.get().email,
                    subject="Your have a trade request!",
-                   body="Dear "+product1.get().seller.get().name+""":
-    You got a trade request from """+product2.get().seller.get().name+""" on UpTrade. You can now visit """+url+""" to accept or decline the trading offer.
-
-The UpTrade Team
-""")
+                   body=body,html=html)
 
 def send_accepted_mail(exchange_key):
     product1=exchange_key.get().product1
@@ -188,7 +186,7 @@ class AddPage(webapp2.RequestHandler):
         new=Product(
         name=self.request.get("nam"),
         description=self.request.get("desc"),
-        photo=images.resize(self.request.get("pic"),250,250),
+        photo=images.resize(self.request.get("pic"),350,350),
         category=self.request.get("cat"),
         seller=user.put()).put()
         user.products.append(new)
@@ -220,14 +218,17 @@ class SentPage(webapp2.RequestHandler):
 
 class ReviewPage(webapp2.RequestHandler):
     def get(self):
-        urlsafe_exchange=self.request.get("e")
-        e_key=ndb.Key(urlsafe=urlsafe_exchange)
-        exchange=e_key.get()
-        template_vars={
-        "exchange":exchange
-        }
-        template=jinja_env.get_template("templates/sent.html")
-        self.response.write(template.render(template_vars))
+        if self.request.get("e"):
+            urlsafe_exchange=self.request.get("e")
+            e_key=ndb.Key(urlsafe=urlsafe_exchange)
+            exchange=e_key.get()
+            template_vars={
+            "exchange":exchange
+            }
+            template=jinja_env.get_template("templates/sent.html")
+            self.response.write(template.render(template_vars))
+        else:
+            self.redirect("/")
 
 app=webapp2.WSGIApplication([
     ("/", MainPage),

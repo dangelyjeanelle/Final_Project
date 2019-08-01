@@ -7,7 +7,7 @@
   </head>
   <div id="logoHeader">
     <div id="header">
-      <img src="/stylesheets/UpTrade.png" alt"logo"/>
+      <img src="/stylesheets/UpTradeLogo.png" alt"logo"/>
     </div>
   </div>
   <ul>
@@ -22,6 +22,14 @@
 <br>
   <body>
     <h1>{{exchange.product2.get().seller}} wants to trade {{exchange.product2.get().name}} for one of your products: {{exchange.product1.get().name}}</h1>
-
+    <h3>Choose accept offer to contact {{exchange.product2.get().seller}} about exchange methods and select decline offer to reject this offer and continue recieving trading offers for {{exchange.product1.get().name}}</h3>
+    <form class="" action="/review" method="post">
+      <input type="radio" id="option1"
+         name="offer" value="yes">
+        <label for="option1">Accept Offer</label>
+      <input type="radio" id="option2"
+         name="offer" value="no">
+        <label for="option2">Decline Offer</label>
+    </form>
   </body>
 </html>

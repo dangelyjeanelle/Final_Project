@@ -13,9 +13,10 @@ handlers:
   static_dir: stylesheets
 - url: /js
   static_dir: js
-- url: /populateDatabase
+- url: /
   script: main.app
-  login: admin
+- url: /img
+  script: main.app
 - url: /.*
   script: main.app
   login: required
