@@ -186,7 +186,7 @@ class AddPage(webapp2.RequestHandler):
         new=Product(
         name=self.request.get("nam"),
         description=self.request.get("desc"),
-        photo=images.resize(self.request.get("pic"),250,250),
+        photo=images.resize(self.request.get("pic"),350,350),
         category=self.request.get("cat"),
         seller=user.put()).put()
         user.products.append(new)
