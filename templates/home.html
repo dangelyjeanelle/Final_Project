@@ -11,8 +11,7 @@
     <link rel="stylesheet" href="/stylesheets/slider.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   </head>
-
-  <body>
+   <body>
     <div id="logoHeader">
       <div id="header">
         <a href="/"><img src="/images/UpTradeLogo.png" alt="logo"/></a>
@@ -35,11 +34,11 @@
       {% endif %}
       <div class="auto-slider w3-content w3-display-containe">
         <!-- <figure> -->
+        <br><br><br>
         {% for product in products %}
-        <div class="auto-slider__content mySlide">
-          <a href="/product?id={{product.key.urlsafe()}}">
-            <div class="product-image">
-              <img alt="Product image" src="/img?img_id={{product.key.urlsafe()}}">
+        <div class="auto-slider__content mySlide key">
+          <a href="/product?id={{product.key.urlsafe()}}">            <div class="product-image">
+              <img class="center" alt="Product image" src="/img?img_id={{product.key.urlsafe()}}">
             </div>
             <!-- <div class="product-info">
               <br><h3>{{product.name}}</h3>

@@ -6,14 +6,23 @@ body{
   margin: 50px auto;
 }
 
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .auto-slider{
   overflow: hidden;
+  justify-content: space-between;
 }
 
 .auto-slider__content{
   list-style:none;
   display:flex;
   background-color: white;
+  position: relative;
+  transition: all .5s;
   /* animation: slide 10s ease-in-out infinite; */
   /* animation: translate 10s ease-in-out; */
 /*   animation-direction: alternate-reverse; */
@@ -22,11 +31,32 @@ body{
   animation-play-state:paused;
 }
 
-.hidden {
-  opacity: 0;
-  height:0;
+.active {
+  position: relative;
+  opacity: 100;
+  /*  */
 }
 
-.active {
-  opacity: 100;
+.auto-slider__content.hidden {
+  position: absolute;;
+  z-index: -100;
+  opacity: 0;
+  height: 0;
+}
+
+.auto-slider__content.hidden.left {
+  transform: translateX(100px);
+}
+
+.auto-slider__content.hidden.right {
+  transform: translateX(-100px);
+}
+
+/* .hidden {
+  opacity: 0;
+  height:0;
+} */
+
+/* .active {
+  opacity: 100; */
 }
