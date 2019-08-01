@@ -23,20 +23,14 @@
   </ul>
 <br>
   <body>
-    <h1>Choose one of your products to exchange for</h1>
+    <h1>You have selected: </h1>
     <img src="/img?img_id={{product1.get().key.urlsafe()}}"></img>
-    <h3>{{product1.get().name}}   </h3> <h1>  ---->  </h1>
-    <form class="" action="index.html" method="post">
+    <h3>{{product1.get().name}} </h3> <h5>Traded by: {{product1.get().seller.get().name}}</h5>
+    <h1> Which product would you like to trade for it?</h1>
+    <h3>(Clicking a product will automatically send a request trade to {{product1.get().seller.get().name}})</h3>
       {% for product in current_user.products %}
-      <!-- <label for="cat1">Accessories</label>
-      <input type="radio" id= "cat2" name="cat" value="Clothing"> -->
-
-      <img src="/img?img_id={{product.urlsafe()}}"></img>
-      <h3>{{product.get().name}}</h3>
-      <h5>Traded by: {{product.get().seller.get().name}}</h5>
-      <p>{{product.description}}</p>
+      <a href="/sent?p1={{product1.urlsafe()}}&p2={{product.urlsafe()}}"><img src="/img?img_id={{product.urlsafe()}}"></img>
+      <h3>{{product.get().name}}</h3></a>
       {% endfor %}
-    </form>
-    <button type="button" class="registerbtn"><a href="/">Send trade request</a></button>
   </body>
 </html>
