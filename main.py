@@ -245,8 +245,7 @@ class ReviewPage(webapp2.RequestHandler):
         elif self.request.get("offer")=="no":
             send_declined_mail(ndb.Key(urlsafe=self.request.get("e")))
         self.redirect("/")
-        template=jinja_env.get_template("templates/review.html")
-        self.response.write(template.render())
+
 app=webapp2.WSGIApplication([
     ("/", MainPage),
     ("/product", ProductPage),
