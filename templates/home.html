@@ -7,7 +7,7 @@
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/stylesheets/slider.css">
-
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   </head>
   <div id="logoHeader">
     <div id="header">
@@ -33,11 +33,11 @@
         <h3>There are currently no items to trade here</h3>
       {% endif %}
     {% for product in products %}
-      <div class="auto-slider">
+      <div class="auto-slider w3-content w3-display-containe">
         <!-- <figure> -->
           <ul class="auto-slider__content">
             <li><a href="/product?id={{product.key.urlsafe()}}"><div class="product-image">
-            <img src="/img?img_id={{product.key.urlsafe()}}"></img></li>
+            <img class="mySlide" src="/img?img_id={{product.key.urlsafe()}}"></img></li>
     <!-- </div>
       <div class="product-info">
         <br><h3>{{product.name}}</h3>
@@ -48,7 +48,10 @@
             <br><h3>{{product.name}}</h3>
             <h5>Traded by: {{product.seller.get().name}}</h5> <br>
           </div></a>
-        </ul>
+          <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
+          <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
+
+        <!-- </ul> -->
       <!-- </figure> -->
       </div>
       <!-- <div class="product-card">
@@ -70,14 +73,23 @@
       active_page.classList.add("active");
     </script>
 
+    <script src="/js/home.js">
 
-
-
-
-
+    </script>
   </body>
 </html>
 
+
+
+
+
+<div class="r">
+  <img class="mySlides" src="img_snowtops.jpg" style="width:100%">
+  <img class="mySlides" src="img_lights.jpg" style="width:100%">
+  <img class="mySlides" src="img_mountains.jpg" style="width:100%">
+  <img class="mySlides" src="img_forest.jpg" style="width:100%">
+
+  </div>
 
 
 
