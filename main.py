@@ -18,16 +18,14 @@ jinja_env=jinja2.Environment(
 def send_request_mail(exchange_key):
     product1=exchange_key.get().product1
     product2=exchange_key.get().product2
-    url="https://up-trade.appspot.com/exchange?"+str(exchange_key.urlsafe())
+    url="https://up-trade.appspot.com/review?"+str(exchange_key.urlsafe())
+    body = """Dear %s:\n You got a trade request from %s on UpTrade. You can now visit %s to accept or decline the trading offer.\n\nThe UpTrade Team""" % (product1.get().seller.get().name, product2.get().seller.get().name, url)
+    html= """Dear %s:<br> &nbsp; You got a trade request from %s on UpTrade. You can now visit <a href="%s">UpTrade</a> to accept or decline the trading offer.<br><br>The UpTrade Team""" % (product1.get().seller.get().name, product2.get().seller.get().name, url)
     mail.send_mail(sender='UpTrade@up-trade.appspotmail.com'.format(
         app_identity.get_application_id()),
                    to=product1.get().seller.get().email,
                    subject="Your have a trade request!",
-                   body="Dear "+product1.get().seller.get().name+""":
-    You got a trade request from """+product2.get().seller.get().name+""" on UpTrade. You can now visit """+url+""" to accept or decline the trading offer.
-
-The UpTrade Team
-""")
+                   body=body,html=html)
 
 def send_accepted_mail(exchange_key):
     product1=exchange_key.get().product1
