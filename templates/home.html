@@ -11,26 +11,7 @@
     <link rel="stylesheet" href="/stylesheets/slider.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   </head>
-<<<<<<< HEAD
-=======
-  <div id="logoHeader">
-    <div id="header">
-      <a href="/"><img src="/images/UpTradeLogo.png" alt"logo"/></a>
-    </div>
-  </div>
-  <ul>
-    <li><a id="Home" href="/"><img src="/images/leaves.png" alt"leaves" height="18" width="18"/> Home</a></li>
-    <li><a id="Accessories" href="/?category=Accessories"><img src="/images/leaves.png" alt"leaves" height="18" width="18"/> Accessories</a></li>
-    <li><a id="Clothing" href="/?category=Clothing"><img src="/images/leaves.png" alt"leaves" height="18" width="18"/> Clothing</a></li>
-    <li><a id="Decoration" href="/?category=Decoration"><img src="/images/leaves.png" alt"leaves" height="18" width="18"/> Decoration</a></li>
-    <li><a id="Office" href="/?category=Office"><img src="/images/leaves.png" alt"leaves" height="18" width="18"/> Office Supplies</a></li>
-    <li><a id="Other" href="/?category=Other"><img src="/images/leaves.png" alt"leaves" height="18" width="18"/> Other</a></li>
-    <li style="float:right"><a href="/profile"><img src="/images/leaves.png" alt"leaves" height="18" width="18"/> Profile</a></li>
-</div>
-</li>
-  </ul>
-<br>
->>>>>>> 0182c7b018e7a015c5f9523f75c210f74a15506d
+
   <body>
     <div id="logoHeader">
       <div id="header">
@@ -68,7 +49,7 @@
           <div class="product-info">
             <br>
             <h3>{{product.name}}</h3>
-            <h5>Traded by: product.seller.get().name</h5>
+            <h5>Traded by: {{product.seller.get().name}}</h5>
             <br>
           </div>
           <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
