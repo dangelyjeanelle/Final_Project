@@ -218,14 +218,17 @@ class SentPage(webapp2.RequestHandler):
 
 class ReviewPage(webapp2.RequestHandler):
     def get(self):
-        urlsafe_exchange=self.request.get("e")
-        e_key=ndb.Key(urlsafe=urlsafe_exchange)
-        exchange=e_key.get()
-        template_vars={
-        "exchange":exchange
-        }
-        template=jinja_env.get_template("templates/sent.html")
-        self.response.write(template.render(template_vars))
+        if self.request.get("e"):
+            urlsafe_exchange=self.request.get("e")
+            e_key=ndb.Key(urlsafe=urlsafe_exchange)
+            exchange=e_key.get()
+            template_vars={
+            "exchange":exchange
+            }
+            template=jinja_env.get_template("templates/sent.html")
+            self.response.write(template.render(template_vars))
+        else:
+            self.redirect("/")
 
 app=webapp2.WSGIApplication([
     ("/", MainPage),
