@@ -21,8 +21,8 @@
   </ul>
 <br>
   <body>
-    <h1>{{exchange.product2.get().seller.get()}} wants to trade {{exchange.product2.get().name}} for one of your products: {{exchange.product1.get().name}}</h1>
-    <h3>Choose accept offer to contact {{exchange.product2.get().seller.get()}} about exchange methods and select decline offer to continue recieving trading offers for {{exchange.product1.get().name}}</h3>
+    <h1>{{exchange.product2.get().seller.get().name}} wants to trade {{exchange.product2.get().name}} for one of your products: {{exchange.product1.get().name}}</h1>
+    <h3>Choose accept offer to contact {{exchange.product2.get().seller.get().name}} about exchange methods and select decline offer to continue recieving trading offers for {{exchange.product1.get().name}}</h3>
     <form class="" action="/review" method="post">
       <input type="radio" id="option1"
          name="offer" value="yes">
