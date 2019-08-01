@@ -30,28 +30,33 @@ def send_request_mail(exchange_key):
 def send_accepted_mail(exchange_key):
     product1=exchange_key.get().product1
     product2=exchange_key.get().product2
-    url="https://up-trade.appspot.com/exchange?"+str(exchange_key.urlsafe())
+    url="https://up-trade.appspot.com/"
+    body1 = """Dear %s:\n %s has accepted your trade request on UpTrade, so the product you traded is no longer available on the UpTrade page. You can now contact (%s) to finalize the trade and choose the most convenient shipping methods for you and your traded products. Visit %s to continue trading with us.\n\nThe UpTrade Team""" % (product2.get().seller.get().name, product1.get().seller.get().name,product1.get().seller.get().email, url)
+    html1 = """Dear %s:<br> &nbsp; %s has accepted your trade request on UpTrade, so the product you traded is no longer available on the UpTrade page. You can now contact (%s) to finalize the trade and choose the most convenient shipping methods for you and your traded products. Visit <a href="%s">UpTrade</a> to continue trading with us.<br><br>The UpTrade Team""" % (product2.get().seller.get().name, product1.get().seller.get().name,product1.get().seller.get().email, url)
+    mail.send_mail(sender='UpTrade@up-trade.appspotmail.com'.format(
+        app_identity.get_application_id()),
+                   to=product2.get().seller.get().email,
+                   subject="Your trading offer was accepted!",
+                   body=body1,html=html1)
+    body2 = """Dear %s:\n You have accepted a trade request from %s on UpTrade, so the product you traded is no longer available on the UpTrade page. You can now contact (%s) to finalize the trade and choose the most convenient shipping methods for you and your traded products. Visit %s to continue trading with us.\n\nThe UpTrade Team""" % (product1.get().seller.get().name, product2.get().seller.get().name,product2.get().seller.get().email, url)
+    html2 = """Dear %s:<br> &nbsp; You have accepted a trade request from %s on UpTrade, so the product you traded is no longer available on the UpTrade page. You can now contact (%s) to finalize the trade and choose the most convenient shipping methods for you and your traded products. Visit <a href="%s">UpTrade</a> to continue trading with us.<br><br>The UpTrade Team""" % (product1.get().seller.get().name, product2.get().seller.get().name,product2.get().seller.get().email, url)
     mail.send_mail(sender='UpTrade@up-trade.appspotmail.com'.format(
         app_identity.get_application_id()),
                    to=product1.get().seller.get().email,
-                   subject="Your have a trade request!",
-                   body="Dear "+product1.get().seller.get().name+""":
-    You got a trade request from"""+product2.get().seller.get().name+""" on UpTrade. You can now visit """+url+""" to accept or decline the trading offer.
-The UpTrade Team
-""")
+                   subject="You accepted a trading offer!",
+                   body=body2,html=html2)
 
 def send_declined_mail(exchange_key):
     product1=exchange_key.get().product1
     product2=exchange_key.get().product2
-    url="https://up-trade.appspot.com/exchange?"+str(exchange_key.urlsafe())
+    url="https://up-trade.appspot.com/"
+    body1 = """Dear %s:\n Unfortunately, %s has declined your trade request on UpTrade, but there are many more products and traders waiting for you in our page. Visit %s to continue trading with us.\n\nThe UpTrade Team""" % (product2.get().seller.get().name, product1.get().seller.get().name, url)
+    html1 = """Dear %s:<br> &nbsp; Unfortunately, %s has declined your trade request on UpTrade, but there are many more products and traders waiting for you in our page Visit <a href="%s">UpTrade</a> to continue trading with us.<br><br>The UpTrade Team""" % (product2.get().seller.get().name, product1.get().seller.get().name, url)
     mail.send_mail(sender='UpTrade@up-trade.appspotmail.com'.format(
         app_identity.get_application_id()),
-                   to=product1.get().seller.get().email,
-                   subject="Your have a trade request!",
-                   body="Dear "+product1.get().seller.get().name+""":
-    You got a trade request from"""+product2.get().seller.get().name+""" on UpTrade. You can now visit """+url+""" to accept or decline the trading offer.
-The UpTrade Team
-""")
+                   to=product2.get().seller.get().email,
+                   subject="Your trading offer was declined",
+                   body=body1,html=html1)
 
 class Product(ndb.Model):
     name=ndb.StringProperty(required=True)
@@ -229,6 +234,13 @@ class ReviewPage(webapp2.RequestHandler):
             self.response.write(template.render(template_vars))
         else:
             self.redirect("/")
+    def post(self):
+        if self.request.get("offer")=="yes":
+            send_accepted_mail(e_key)
+            exchange.product1.delete()
+            exchange.product2.delete()
+        else:
+            send_declined_mail(e_key)
 
 app=webapp2.WSGIApplication([
     ("/", MainPage),
