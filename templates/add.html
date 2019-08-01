@@ -39,17 +39,17 @@
         </li>
       </div>
     </ul>
-
-      <br><h1>Add a product</h1>
+    <div class="container">
+      <br><h2>Add a product</h2>
       <p>Please enter information for all required fields (*):</p>
+      <hr>
       <form class="" action="" enctype="multipart/form-data" method="post">
+        <div>Title (*):<input type="text" name="nam" value="" placeholder="Product title" required></div>
         <br>
-        <div>Name (*):<input type="text" name="nam" value=""></div>
-        <br>
-        <div>Description (*):<input type="text" name="desc" value=""></div>
+        <div>Description (*):<input type="text" name="desc" value="" placeholder="Product description" required></div>
         <br>
         Upload an image of your product: (*)<div>
-          <input type="file" name="pic" accept="image/*" value="">
+          <input type="file" name="pic" accept="image/*" value="" required>
         </div>
         <br>
         <div>Category:&nbsp&nbsp&nbsp&nbsp<input type="radio" id= "cat1" name="cat" value="Accessories">
@@ -64,8 +64,9 @@
         <label for="Other">Other</label>
         </div>
         <br>
-        <button type="submit" class="registerbtn"><h2>Add product</h2></button>
+        <button type="submit" class="registerbtn">Add product</button>
         <!-- <input type="submit" name="sub-butt" value="Add product"> -->
-      </form>
+      </div>
+    </form>
   </body>
 </html>
