@@ -6,7 +6,7 @@ const validateForm = () => {
   }
 }
 
-let varIndex = 1;
+let slideIndex = 1;
 showDivs(slideIndex);
 
 const plusDivs(n) {
