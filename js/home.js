@@ -35,10 +35,10 @@ const plusDivs = (n) => {
   showDivs(slideIndex += n);
 }
 
-// keyPressed.addEventListener('keydown', (e) => {
-//   if (e.key === "ArrowRight") {
-//     plusDivs(1);
-//   } else if (e.key === "ArrowLeft") {
-//     plusDivs(-1)
-//   }
-// });
+document.addEventListener('keydown', (e) => {
+  if (e.key === "ArrowRight") {
+    plusDivs(1);
+  } else if (e.key === "ArrowLeft") {
+    plusDivs(-1)
+  }
+});

@@ -21,6 +21,13 @@ body {
   color: black;
   font-family: Georgia;
   font-size: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  padding: 0;
+  margin-block-start: 0em;
 }
 
 ul .categories {
@@ -100,4 +107,8 @@ li.dropdown {
 
 .active {
   background-color: #81B14F;
+}
+
+.mySlide {
+  margin: auto;
 }
