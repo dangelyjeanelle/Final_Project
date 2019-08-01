@@ -6,16 +6,11 @@ const validateForm = () => {
   }
 }
 
-let varIndex = 1;
-showDivs(slideIndex);
 
-const plusDivs(n) {
-  showDivs(slideIndex += n);
-}
-
-const showDivs(n) {
+let slideIndex = 1;
+const showDivs = (n) => {
   let i;
-  let x = document.getElementByClassName("mySlide");
+  let x = [...document.querySelectorAll(".mySlide")];
   if (n > x.length) {
     slideIndex = 1;
   }
@@ -23,7 +18,14 @@ const showDivs(n) {
     slideIndex = x.length;
   }
   for (i = 0; i < x.length; i++) {
-    x[i].style.display = "none";
+    x[i].classList.add('hidden');
+    x[i].classList.remove('active');
+
   }
-  x[slideIndex-1].style.display = "block";
+  x[slideIndex-1].classList.add('active');
+  x[slideIndex-1].classList.remove('hidden');
+}
+showDivs(slideIndex);
+const plusDivs = (n) => {
+  showDivs(slideIndex += n);
 }
