@@ -7,32 +7,33 @@
     <link rel="stylesheet" href="/stylesheets/signup.css">
 
   </head>
-  <div id="logoHeader">
-    <div id="header">
-      <img src="/images/UpTradeLogo.png" alt"logo"/>
-    </div>
-  </div>
-  <ul>
-    <div class="categories">
-      <li><a id="Home" href="/"><img src="/images/leaves.png" alt="leaves" height="18" width="18"/> Home</a></li>
-      <li><a id="Accessories" href="/?category=Accessories"><img src="/images/leaves.png" alt="leaves" height="18" width="18"/> Accessories</a></li>
-      <li><a id="Clothing" href="/?category=Clothing"><img src="/images/leaves.png" alt="leaves" height="18" width="18"/> Clothing</a></li>
-      <li><a id="Decoration" href="/?category=Decoration"><img src="/images/leaves.png" alt="leaves" height="18" width="18"/> Decoration</a></li>
-      <li><a id="Office" href="/?category=Office"><img src="/images/leaves.png" alt="leaves" height="18" width="18"/> Office Supplies</a></li>
-      <li><a id="Other" href="/?category=Other"><img src="/images/leaves.png" alt="leaves" height="18" width="18"/> Other</a></li>
-      <div class="spacer"></div>
-      <li class="dropdown profile">
-        <a href="javascript:void(0)" class="dropbtn"><img src="/images/leaves.png" alt="leaves" height="18" width="18"/> Profile</a>
-        <div class="dropdown-content">
-          <a href="/add">View Profile</a>
-          <a href="/profile">Add Product</a>
-          <a href="/profile">Delete Profile</a>
-        </div>
-      </li>
-    </div>
-  </ul>
-<br>
   <body>
+      <div id="logoHeader">
+        <div id="header">
+          <img src="/images/UpTradeLogo.png" alt"logo"/>
+        </div>
+      </div>
+      <ul>
+        <div class="categories">
+          <li><a id="Home" href="/"><img src="/images/leaves.png" alt="leaves" height="18" width="18"/> Home</a></li>
+          <li><a id="Accessories" href="/?category=Accessories"><img src="/images/leaves.png" alt="leaves" height="18" width="18"/> Accessories</a></li>
+          <li><a id="Clothing" href="/?category=Clothing"><img src="/images/leaves.png" alt="leaves" height="18" width="18"/> Clothing</a></li>
+          <li><a id="Decoration" href="/?category=Decoration"><img src="/images/leaves.png" alt="leaves" height="18" width="18"/> Decoration</a></li>
+          <li><a id="Office" href="/?category=Office"><img src="/images/leaves.png" alt="leaves" height="18" width="18"/> Office Supplies</a></li>
+          <li><a id="Other" href="/?category=Other"><img src="/images/leaves.png" alt="leaves" height="18" width="18"/> Other</a></li>
+          <div class="spacer"></div>
+          <li class="dropdown profile">
+            <a href="javascript:void(0)" class="dropbtn"><img src="/images/leaves.png" alt="leaves" height="18" width="18"/> Profile</a>
+            <div class="dropdown-content">
+              <a href="/profile">View Profile</a>
+              <a href="/add">Add Product</a>
+              <a href="/profile">Delete Profile</a>
+            </div>
+          </li>
+        </div>
+      </ul>
+    <br>
+
     <h1>You have selected: </h1>
     <img src="/img?img_id={{product1.get().key.urlsafe()}}"></img>
     <h3>{{product1.get().name}} </h3> <h5>Traded by: {{product1.get().seller.get().name}}</h5>
