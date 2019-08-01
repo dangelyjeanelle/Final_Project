@@ -9,17 +9,17 @@
   </head>
   <div id="logoHeader">
     <div id="header">
-      <img src="/stylesheets/UpTrade.png" alt"logo" />
+      <img src="/images/UpTrade.png" alt"logo" />
     </div>
   </div>
   <ul>
-    <li><a href="/"><img src="/stylesheets/leaves.png" alt"leaves" height="18" width="18"/> Home</a></li>
-    <li><a href="/accessories"><img src="/stylesheets/leaves.png" alt"leaves" height="18" width="18"/> Accessories</a></li>
-    <li><a href="/clothing"><img src="/stylesheets/leaves.png" alt"leaves" height="18" width="18"/> Clothing</a></li>
-    <li><a href="/decoration"><img src="/stylesheets/leaves.png" alt"leaves" height="18" width="18"/> Decoration</a></li>
-    <li><a href="/office"><img src="/stylesheets/leaves.png" alt"leaves" height="18" width="18"/> Office Supplies</a></li>
-    <li><a href="/other"><img src="/stylesheets/leaves.png" alt"leaves" height="18" width="18"/> Other</a></li>
-    <li style="float:right"><a href="/profile"><img src="/stylesheets/leaves.png" alt"leaves" height="18" width="18"/> Profile</a></li>
+    <li style-"float:right"><a id="Home" href="/"><img src="/images/leaves.png" alt"leaves" height="18" width="18"/> Home</a></li>
+    <li><a id="Accessories" href="/?category=Accessories"><img src="/images/leaves.png" alt"leaves" height="18" width="18"/> Accessories</a></li>
+    <li><a id="Clothing" href="/?category=Clothing"><img src="/images/leaves.png" alt"leaves" height="18" width="18"/> Clothing</a></li>
+    <li><a id="Decoration" href="/?category=Decoration"><img src="/images/leaves.png" alt"leaves" height="18" width="18"/> Decoration</a></li>
+    <li><a id="Office" href="/?category=Office"><img src="/images/leaves.png" alt"leaves" height="18" width="18"/> Office Supplies</a></li>
+    <li><a id="Other" href="/?category=Other"><img src="/images/leaves.png" alt"leaves" height="18" width="18"/> Other</a></li>
+    <li style="float:right"><a href="/profile"><img src="/images/leaves.png" alt"leaves" height="18" width="18"/> Profile</a></li>
   </ul>
   <body><br>
     <img src="/img?img_id={{product.key.urlsafe()}}"></img>
@@ -29,7 +29,12 @@
     {% if product.seller.get()!=current_user %}
     <button type="button" class="registerbtn"><a href="/exchange?p={{product.key.urlsafe()}}">Exchange</a></button>
     {% else %}
-    This is your product. You cannot trade for it
+    <script>
+      document.getElementById("myBtn").addEventListener("click", displayAlert);
+      function displayAlert() {
+        document.getElementById("demo").innerHTML = "This is your product. You cannot trade for it."
+      }
+      </script>
     <button type="button" class="registerbtn"><a href="/">Go back to the home page</a></button>
     {% endif %}
   </body>

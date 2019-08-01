@@ -4,21 +4,26 @@
     <meta charset="utf-8">
     <title>UpTrade 🌿{{title}}</title>
     <link href="/stylesheets/home.css" rel="stylesheet">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/stylesheets/slider.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+
   </head>
   <div id="logoHeader">
     <div id="header">
-      <img src="/stylesheets/UpTrade.png" alt"logo"/>
+      <a href="/"><img src="/images/UpTrade.png" alt"logo"/></a>
     </div>
   </div>
   <ul>
-    <li style-"float:right"><a id="Home" href="/"><img src="/stylesheets/leaves.png" alt"leaves" height="18" width="18"/> Home</a></li>
-    <li><a id="Accessories" href="/?category=Accessories"><img src="/stylesheets/leaves.png" alt"leaves" height="18" width="18"/> Accessories</a></li>
-    <li><a id="Clothing" href="/?category=Clothing"><img src="/stylesheets/leaves.png" alt"leaves" height="18" width="18"/> Clothing</a></li>
-    <li><a id="Decoration" href="/?category=Decoration"><img src="/stylesheets/leaves.png" alt"leaves" height="18" width="18"/> Decoration</a></li>
-    <li><a id="Office" href="/?category=Office"><img src="/stylesheets/leaves.png" alt"leaves" height="18" width="18"/> Office Supplies</a></li>
-    <li><a id="Other" href="/?category=Other"><img src="/stylesheets/leaves.png" alt"leaves" height="18" width="18"/> Other</a></li>
-
-    <li style="float:right"><a href="/profile"><img src="/stylesheets/leaves.png" alt"leaves" height="18" width="18"/> Profile</a></li>
+    <li style-"float:right"><a id="Home" href="/"><img src="/images/leaves.png" alt"leaves" height="18" width="18"/> Home</a></li>
+    <li><a id="Accessories" href="/?category=Accessories"><img src="/images/leaves.png" alt"leaves" height="18" width="18"/> Accessories</a></li>
+    <li><a id="Clothing" href="/?category=Clothing"><img src="/images/leaves.png" alt"leaves" height="18" width="18"/> Clothing</a></li>
+    <li><a id="Decoration" href="/?category=Decoration"><img src="/images/leaves.png" alt"leaves" height="18" width="18"/> Decoration</a></li>
+    <li><a id="Office" href="/?category=Office"><img src="/images/leaves.png" alt"leaves" height="18" width="18"/> Office Supplies</a></li>
+    <li><a id="Other" href="/?category=Other"><img src="/images/leaves.png" alt"leaves" height="18" width="18"/> Other</a></li>
+    <li style="float:right"><a href="/profile"><img src="/images/leaves.png" alt"leaves" height="18" width="18"/> Profile</a></li>
 </div>
 </li>
   </ul>
@@ -30,18 +35,34 @@
         <h3>There are currently no items to trade here</h3>
       {% endif %}
     {% for product in products %}
-      <div class="product-card">
+      <div class="auto-slider w3-content w3-display-containe">
+        <!-- <figure> -->
+          <ul class="auto-slider__content">
+            <li><a href="/product?id={{product.key.urlsafe()}}"><div class="product-image">
+            <img class="mySlide" src="/img?img_id={{product.key.urlsafe()}}"></img></li>
+    <!-- </div>
+      <div class="product-info">
+        <br><h3>{{product.name}}</h3>
+          <h5>Traded by: {{product.seller.get().name}}</h5> <br>
+        </div> -->
+          </a>
+          <div class="product-info">
+            <br><h3>{{product.name}}</h3>
+            <h5>Traded by: {{product.seller.get().name}}</h5> <br>
+          </div></a>
+          <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
+          <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
+
+        <!-- </ul> -->
+      <!-- </figure> -->
+      </div>
+      <!-- <div class="product-card">
         <a href="/product?id={{product.key.urlsafe()}}"><div class="product-image">
           <img src="/img?img_id={{product.key.urlsafe()}}"></img>
-        </div>
-        <div class="product-info">
-          <br><h3>{{product.name}}</h3>
-          <h5>Traded by: {{product.seller.get().name}}</h5> <br>
-        </div></a>
-      </div>
+        </div> -->
+
     {% endfor %}
     </section>
-
     <script>
       let url=new URL(window.location.href);
       let category=url.searchParams.get('category');
@@ -53,5 +74,32 @@
       let active_page=document.getElementById(category);
       active_page.classList.add("active");
     </script>
+
+    <script src="/js/home.js">
+
+    </script>
   </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="auto-slider">
+  <ul class="auto-slider__content">
+    <li><img src="http://lorempixel.com/output/food-q-c-720-360-1.jpg" alt="food-1"></li>
+    <li><img src="http://lorempixel.com/output/food-q-c-720-360-2.jpg" alt="food-2"></li>
+    <li><img src="http://lorempixel.com/output/food-q-c-720-360-3.jpg" alt="food-3"></li>
+    <li><img src="http://lorempixel.com/output/food-q-c-720-360-4.jpg" alt="food-4"></li>
+  </ul>
+</div> -->
