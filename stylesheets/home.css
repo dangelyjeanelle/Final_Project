@@ -21,6 +21,11 @@ body {
   color: black;
   font-family: Georgia;
   font-size: 20px;
+  margin: 0;
+}
+
+ul {
+  padding: 0;
 }
 
 ul .categories {
