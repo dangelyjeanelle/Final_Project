@@ -236,12 +236,17 @@ class ReviewPage(webapp2.RequestHandler):
             self.redirect("/")
     def post(self):
         if self.request.get("offer")=="yes":
-            send_accepted_mail(ndb.Key(urlsafe=self.request.get("e")))
+            urlsafe_exchange=self.request.get("e")
+            e_key=ndb.Key(urlsafe=urlsafe_exchange)
+            exchange=e_key.get()
+            send_accepted_mail(e_key)
             exchange.product1.delete()
             exchange.product2.delete()
-        else:
-            send_declined_mail(e_key)
-
+        elif self.request.get("offer")=="no":
+            send_declined_mail(ndb.Key(urlsafe=self.request.get("e")))
+        self.redirect("/")
+        template=jinja_env.get_template("templates/review.html")
+        self.response.write(template.render())
 app=webapp2.WSGIApplication([
     ("/", MainPage),
     ("/product", ProductPage),
