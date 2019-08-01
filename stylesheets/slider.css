@@ -13,14 +13,18 @@ body{
 }
 
 .auto-slider{
+  text-align: center;
   overflow: hidden;
-  justify-content: space-between;
+  /* justify-content: space-between; */
 }
 
 .auto-slider__content{
   list-style:none;
   display:flex;
   background-color: white;
+  width: 400px;
+  /* height: 100px */
+  /* border: 2px solid black; */
   position: relative;
   transition: all .5s;
   /* animation: slide 10s ease-in-out infinite; */
@@ -50,13 +54,4 @@ body{
 
 .auto-slider__content.hidden.right {
   transform: translateX(-100px);
-}
-
-/* .hidden {
-  opacity: 0;
-  height:0;
-} */
-
-/* .active {
-  opacity: 100; */
 }

@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/stylesheets/home.css" >
     <link rel="stylesheet" href="/stylesheets/slider.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   </head>
@@ -44,7 +45,8 @@
         <br><br><br>
         {% for product in products %}
         <div class="auto-slider__content mySlide key">
-          <a href="/product?id={{product.key.urlsafe()}}">            <div class="product-image">
+          <a href="/product?id={{product.key.urlsafe()}}">
+            <div class="product-image">
               <img class="center" alt="Product image" src="/img?img_id={{product.key.urlsafe()}}">
             </div>
             <!-- <div class="product-info">

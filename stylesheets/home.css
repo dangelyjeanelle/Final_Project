@@ -108,3 +108,7 @@ li.dropdown {
 .active {
   background-color: #81B14F;
 }
+
+.mySlide {
+  margin: auto;
+}

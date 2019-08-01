@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>UpTrade 🌿Add Product</title>
+<<<<<<< HEAD
     <link rel="stylesheet" href="/stylesheets/home.css">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
@@ -42,22 +43,71 @@
       <br>
       Upload an image of your product: (*)<div>
         <input type="file" name="pic" accept="image/*" value="">
+=======
+    <link href="/stylesheets/home.css" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/signup.css">
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+  </head>
+
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  </head>
+
+  <body>
+    <div id="logoHeader">
+      <div id="header">
+        <img src="/images/UpTradeLogo.png" alt"logo" />
+>>>>>>> c0a0bc9bd7f688be2a21d9a09bf76ee787ec04dd
       </div>
-      <br>
-      <div>Category:&nbsp&nbsp&nbsp&nbsp<input type="radio" id= "cat1" name="cat" value="Accessories">
-      <label for="cat1">Accessories</label>&nbsp&nbsp&nbsp
-      <input type="radio" id= "cat2" name="cat" value="Clothing">
-      <label for="cat2">Clothing</label>&nbsp&nbsp&nbsp
-      <input type="radio" id= "cat3" name="cat" value="Decoration">
-      <label for="cat3">Decoration</label>&nbsp&nbsp&nbsp
-      <input type="radio" id= "cat4" name="cat" value="Office">
-      <label for="cat4">Office Supplies</label>&nbsp&nbsp&nbsp
-      <input type="radio" id= "Other" name="cat" value="Other">
-      <label for="Other">Other</label>
+    </div>
+    <ul>
+      <div class="categories">
+        <li><a id="Home" href="/"><img src="/images/leaves.png" alt="leaves" height="18" width="18"/> Home</a></li>
+        <li><a id="Accessories" href="/?category=Accessories"><img src="/images/leaves.png" alt="leaves" height="18" width="18"/> Accessories</a></li>
+        <li><a id="Clothing" href="/?category=Clothing"><img src="/images/leaves.png" alt="leaves" height="18" width="18"/> Clothing</a></li>
+        <li><a id="Decoration" href="/?category=Decoration"><img src="/images/leaves.png" alt="leaves" height="18" width="18"/> Decoration</a></li>
+        <li><a id="Office" href="/?category=Office"><img src="/images/leaves.png" alt="leaves" height="18" width="18"/> Office Supplies</a></li>
+        <li><a id="Other" href="/?category=Other"><img src="/images/leaves.png" alt="leaves" height="18" width="18"/> Other</a></li>
+        <div class="spacer"></div>
+        <li class="dropdown profile">
+          <a href="javascript:void(0)" class="dropbtn"><img src="/images/leaves.png" alt="leaves" height="18" width="18"/> Profile</a>
+          <div class="dropdown-content">
+            <a href="/profile">View Profile</a>
+            <a href="/add">Add Product</a>
+            <a href="/profile">Delete Profile</a>
+          </div>
+        </li>
       </div>
-      <br>
-      <button type="submit" class="registerbtn"><h2>Add product</h2></button>
-      <!-- <input type="submit" name="sub-butt" value="Add product"> -->
-    </form>
+    </ul>
+
+      <br><h1>Add a product</h1>
+      <p>Please enter information for all required fields (*):</p>
+      <form class="" action="" enctype="multipart/form-data" method="post">
+        <br>
+        <div>Name (*):<input type="text" name="nam" value=""></div>
+        <br>
+        <div>Description (*):<input type="text" name="desc" value=""></div>
+        <br>
+        Upload an image of your product: (*)<div>
+          <input type="file" name="pic" accept="image/*" value="">
+        </div>
+        <br>
+        <div>Category:&nbsp&nbsp&nbsp&nbsp<input type="radio" id= "cat1" name="cat" value="Accessories">
+        <label for="cat1">Accessories</label>&nbsp&nbsp&nbsp
+        <input type="radio" id= "cat2" name="cat" value="Clothing">
+        <label for="cat2">Clothing</label>&nbsp&nbsp&nbsp
+        <input type="radio" id= "cat3" name="cat" value="Decoration">
+        <label for="cat3">Decoration</label>&nbsp&nbsp&nbsp
+        <input type="radio" id= "cat4" name="cat" value="Office">
+        <label for="cat4">Office Supplies</label>&nbsp&nbsp&nbsp
+        <input type="radio" id= "Other" name="cat" value="Other">
+        <label for="Other">Other</label>
+        </div>
+        <br>
+        <button type="submit" class="registerbtn"><h2>Add product</h2></button>
+        <!-- <input type="submit" name="sub-butt" value="Add product"> -->
+      </form>
   </body>
 </html>
