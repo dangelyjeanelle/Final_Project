@@ -24,7 +24,7 @@ def send_request_mail(exchange_key):
                    to=product1.get().seller.get().email,
                    subject="Your have a trade request!",
                    body="Dear "+product1.get().seller.get().name+""":
-    You got a trade request from """+product2.get().seller.get().name+" on UpTrade. You can now visit "+url+""" to accept or decline the trading offer.
+    You got a trade request from """+product2.get().seller.get().name+""" on UpTrade. You can now visit """+url+""" to accept or decline the trading offer.
 
 The UpTrade Team
 """)
