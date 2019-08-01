@@ -1,4 +1,4 @@
-/* div#logoHeader {
+div#logoHeader {
  width: 100%;
  height: 200px;
  text-align:center;
@@ -17,7 +17,7 @@ div#logoHeader div#header img {
 }
 
 body {
-  background-color: white;
+  background-image: linear-gradient(white, #c0d8a7);
   color: black;
   font-family: Georgia;
   font-size: 20px;
@@ -32,6 +32,8 @@ ul {
   position: -webkit-sticky;
   position: sticky;
   top: 0;
+  font-family: Georgia;
+  font-size: 20px;
 }
 
 li {
@@ -52,7 +54,7 @@ li a:hover {
 
 .active {
   background-color: #81B14F;
-} */
+}
 
 body {
   font-family: sans-serif;
