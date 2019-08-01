@@ -62,7 +62,7 @@ class Product(ndb.Model):
     name=ndb.StringProperty(required=True)
     description=ndb.StringProperty(required=True)
     seller=ndb.KeyProperty(kind="UptradeUser", required=True)
-    category=ndb.StringProperty(required=False)
+    category=ndb.StringProperty(required=True)
     photo=ndb.BlobProperty(required=True)
 
 class UptradeUser(ndb.Model):
@@ -70,7 +70,7 @@ class UptradeUser(ndb.Model):
     # id=ndb.IntegerProperty(required=True)
     products=ndb.KeyProperty(kind=Product, required=False, repeated=True)
     email=ndb.StringProperty(required=True)
-    avatar=ndb.BlobProperty(required=False)
+    avatar=ndb.BlobProperty(required=True)
 
 class Exchange(ndb.Model):
     product1=ndb.KeyProperty(kind=Product,required=True)
@@ -240,6 +240,10 @@ class ReviewPage(webapp2.RequestHandler):
             e_key=ndb.Key(urlsafe=urlsafe_exchange)
             exchange=e_key.get()
             send_accepted_mail(e_key)
+            del exchange.product1.get().seller.get().products[exchange.product1.get().seller.get().products.index(exchange.product1)]
+            del exchange.product2.get().seller.get().products[exchange.product2.get().seller.get().products.index(exchange.product2)]
+            exchange.product1.get().put()
+            exchange.product2.get().put()
             exchange.product1.delete()
             exchange.product2.delete()
         elif self.request.get("offer")=="no":
