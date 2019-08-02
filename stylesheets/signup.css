@@ -43,7 +43,7 @@ a {
 }
 
 body {
-  background-image: linear-gradient(white, #c0d8a7);
+  background-image: linear-gradient(white,white, #c0d8a7);
   color: black;
   font-family: Georgia;
   font-size: 20px;
@@ -60,7 +60,7 @@ ul .categories {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  background-color: #451b04;
+  background-color: #472c1d;
   position: -webkit-sticky;
   position: sticky;
   top: 0;
@@ -77,7 +77,7 @@ ul .profile {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #451b04;
+  background-color: #472c1d;
   position: -webkit-sticky;
   position: sticky;
   top: 0;

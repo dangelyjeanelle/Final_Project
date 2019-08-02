@@ -233,11 +233,13 @@ class SentPage(webapp2.RequestHandler):
 class ReviewPage(webapp2.RequestHandler):
     def get(self):
         if self.request.get("e"):
+            important=users.create_logout_url("/")
             urlsafe_exchange=self.request.get("e")
             e_key=ndb.Key(urlsafe=urlsafe_exchange)
             exchange=e_key.get()
             template_vars={
-            "exchange":exchange
+            "exchange":exchange,
+            "important":important
             }
             template=jinja_env.get_template("templates/review.html")
             self.response.write(template.render(template_vars))
@@ -265,6 +267,12 @@ class DeleteProfile(webapp2.RequestHandler):
         uptrade_user.key.delete()
         self.redirect("/")
 
+class SecretPage(webapp2.RequestHandler):
+    def get(self):
+        uptrade_user=UptradeUser.get_by_id(users.get_current_user().user_id())
+        uptrade_user.key.delete()
+        self.redirect("/")
+
 app=webapp2.WSGIApplication([
     ("/", MainPage),
     ("/product", ProductPage),
@@ -275,5 +283,5 @@ app=webapp2.WSGIApplication([
     ("/img", Image),
     ("/sent", SentPage),
     ("/review", ReviewPage),
-    ("/deleteProfile", DeleteProfile)
+    ("/deleteProfile", DeleteProfile),
 ], debug=True)

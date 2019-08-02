@@ -22,7 +22,7 @@ ul .categories {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  background-color: #451b04;
+  background-color: #472c1d;
   position: -webkit-sticky;
   position: sticky;
   top: 0;
@@ -39,7 +39,7 @@ ul .profile {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #451b04;
+  background-color: #472c1d;
   position: -webkit-sticky;
   position: sticky;
   top: 0;
@@ -70,7 +70,7 @@ li.dropdown {
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #451b04;
+  background-color: #472c1d;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
@@ -102,4 +102,9 @@ li.dropdown {
 
 #textColor {
   color: white;
+}
+
+h3{
+  text-align: center;
+  font-family: sans-serif;
 }

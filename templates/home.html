@@ -31,7 +31,7 @@
           {% else %}
             <a href="/profile">View Profile</a>
             <a href="/add">Add Product</a>
-            <a href="/deleteProfile" class="delete" onclick="return confirm('Are you sure to delete this account permanently?')">Delete Profile</a>
+            <a href="/deleteProfile" class="delete" onclick="return confirm('Are you sure you want to delete this account permanently?')">Delete Profile</a>
             <a href="{{important}}">Sign {{sec}}</a>
           {% endif %}
         </div>
@@ -41,7 +41,7 @@
 <br>
     <section class="products">
       {% if products|length==0 %}
-      <h3>There are currently no items to trade here</h3>
+      <h3><br><br>There are currently no items to trade here</h3>
       {% endif %}
       <div class="auto-slider w3-content w3-display-containe">
         <!-- <figure> -->
