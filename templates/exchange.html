@@ -8,31 +8,6 @@
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
   </head>
-  <div id="logoHeader">
-    <div id="header">
-      <a href="/"><img src="/images/UpTradeLogo.png" alt="logo"/></a>
-    </div>
-  </div>
-  <ul>
-    <div class="categories">
-      <li><a id="Home" href="/"><img src="/images/leaves.png" alt="leaves" height="18" width="18"/> Home</a></li>
-      <li><a id="Accessories" href="/?category=Accessories"><img src="/images/leaves.png" alt="leaves" height="18" width="18"/> Accessories</a></li>
-      <li><a id="Clothing" href="/?category=Clothing"><img src="/images/leaves.png" alt="leaves" height="18" width="18"/> Clothing</a></li>
-      <li><a id="Decoration" href="/?category=Decoration"><img src="/images/leaves.png" alt="leaves" height="18" width="18"/> Decoration</a></li>
-      <li><a id="Office" href="/?category=Office"><img src="/images/leaves.png" alt="leaves" height="18" width="18"/> Office Supplies</a></li>
-      <li><a id="Other" href="/?category=Other"><img src="/images/leaves.png" alt="leaves" height="18" width="18"/> Other</a></li>
-      <div class="spacer"></div>
-      <li class="dropdown profile">
-        <a href="javascript:void(0)" class="dropbtn"><img src="/images/leaves.png" alt="leaves" height="18" width="18"/> Profile</a>
-        <div class="dropdown-content">
-          <a href="/profile">View Profile</a>
-          <a href="/add">Add Product</a>
-          <a href="/profile">Delete Profile</a>
-        </div>
-      </li>
-    </div>
-  </ul>
-<br>
   <body>
       <div id="logoHeader">
         <div id="header">
@@ -59,19 +34,20 @@
         </div>
       </ul>
     <br>
-
-    <h1>You have selected: </h1>
-    <img src="/img?img_id={{product1.get().key.urlsafe()}}"></img>
-    <h3>{{product1.get().name}} </h3> <h5>Traded by: {{product1.get().seller.get().name}}</h5>
-    <h1> Which product would you like to trade for it?</h1>
-    <h3>(Clicking a product will automatically send a request trade to {{product1.get().seller.get().name}})</h3>
-      {% if current_user.products|length==0 %}
-      <h3>You have no products to trade. Add a product to begin trading</h3>
-      {% else %}
-        {% for product in current_user.products %}
-        <a href="/sent?p1={{product1.urlsafe()}}&p2={{product.urlsafe()}}"><img src="/img?img_id={{product.urlsafe()}}"></img>
-        <h3>{{product.get().name}}</h3></a>
-        {% endfor %}
-      {% endif %}
-  </body>
+    <div class="container">
+      <h1>You have selected: </h1>
+      <img src="/img?img_id={{product1.get().key.urlsafe()}}"></img>
+      <h3>{{product1.get().name}} </h3> <h5>Traded by: {{product1.get().seller.get().name}}</h5>
+      <h1> Which product would you like to trade for it?</h1>
+      <h3>(Clicking a product will automatically send a request trade to {{product1.get().seller.get().name}})</h3>
+        {% if current_user.products|length==0 %}
+        <h3>You have no products to trade. Add a product to begin trading</h3>
+        {% else %}
+          {% for product in current_user.products %}
+          <a href="/sent?p1={{product1.urlsafe()}}&p2={{product.urlsafe()}}"><img src="/img?img_id={{product.urlsafe()}}"></img>
+          <h3>{{product.get().name}}</h3></a>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </body>
 </html>

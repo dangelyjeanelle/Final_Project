@@ -34,12 +34,16 @@
     </div>
   </ul>
   <br>
+  <div class="container">
     <img src="/img?img_id={{product.key.urlsafe()}}"></img>
     <h3>{{product.name}}</h3>
     <h5>Traded by: {{product.seller.get().name}}</h5>
     <p>{{product.description}}</p>
     {% if product.seller.get()!=current_user %}
-    <button type="button" class="registerbtn"><a href="/exchange?p={{product.key.urlsafe()}}">Exchange</a></button>
+    <a href="/exchange?p={{product.key.urlsafe()}}"><button id="textColor" type="button" class="registerbtn"><h2>Exchange</h2></button></a>
+
+
+    <!-- <button id="textColor" type="button" class="registerbtn"><a href="/exchange?p={{product.key.urlsafe()}}">Exchange</a></button> -->
     {% else %}
     <script>
       document.getElementById("myBtn").addEventListener("click", displayAlert);
@@ -47,7 +51,7 @@
         document.getElementById("demo").innerHTML = "This is your product. You cannot trade for it."
       }
       </script>
-    <button type="button" class="registerbtn"><a href="/">Go back to the home page</a></button>
+    <a href="/"><button type="button" class="registerbtn"><h2>Go back to the home page</h2></button></a>
     {% endif %}
   </body>
 </html>
