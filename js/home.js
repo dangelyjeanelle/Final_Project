@@ -42,33 +42,3 @@ document.addEventListener('keydown', (e) => {
     plusDivs(-1);
   }
 });
-
-// let deleteLink = document.querySelectorAll('delete');
-const confirmation = () => {
-  let result = confirm("Are you sure you want to delete this account permanently?");
-  console.log(result)
-  if (result) {
-    hd;
-  }
-};
-
-  // function JSconfirm(){
-  // 	swal({
-  //     title: "Redirect to main page!",
-  //     text: "Redirect me to home page?",
-  //     type: "warning",
-  //     showCancelButton: true,
-  //     confirmButtonColor: "#DD6B55",
-  //     confirmButtonText: "Yes",
-  //     cancelButtonText: "No",
-  //     closeOnConfirm: false,
-  //     closeOnCancel: false },
-  //     function(isConfirm){
-  //         if (isConfirm)
-  //     {
-  //         window.location = "https://www.jquery-az.com/";
-  //         }
-  //         else {
-  //             swal("You are not redirected!", "success");
-  //             } });
-  // }
