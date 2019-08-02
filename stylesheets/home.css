@@ -1,21 +1,3 @@
-div#logoHeader {
- width: 100%;
- height: 200px;
- text-align:center;
- display: flex;
-}
-
-div#logoHeader div#header {
- width: 900px;
- height: 150px;
- margin: 0 auto;
-}
-
-div#logoHeader div#header img {
- height: 200px;
- margin:0 auto;
-}
-
 body {
   background-image: linear-gradient(white, white, #c0d8a7);
   color: black;
