@@ -42,24 +42,6 @@ a {
   text-align: center;
 }
 
-div#logoHeader {
- width: 100%;
- height: 200px;
- text-align:center;
- display: flex;
-}
-
-div#logoHeader div#header {
- width: 900px;
- height: 150px;
- margin:0 auto;
-}
-
-div#logoHeader div#header img {
- height: 200px;
- margin:0 auto;
-}
-
 body {
   background-image: linear-gradient(white, #c0d8a7);
   color: black;
@@ -136,20 +118,6 @@ hr {
   margin-bottom: 25px;
 }
 
-.registerbtn {
-  background-color: #4CAF50;
-  color: white;
-  padding: 16px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  width: 50%;
-  opacity: 0.9;
-}
-
-.registerbtn:hover {
-  opacity: 1;
-}
 
 a {
   color: dodgerblue;
