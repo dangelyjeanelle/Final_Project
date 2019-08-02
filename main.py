@@ -259,6 +259,12 @@ class ReviewPage(webapp2.RequestHandler):
             send_declined_mail(ndb.Key(urlsafe=self.request.get("e")))
         self.redirect("/")
 
+class DeleteProfile(webapp2.RequestHandler):
+    def get(self):
+        uptrade_user=UptradeUser.get_by_id(users.get_current_user().user_id())
+        uptrade_user.key.delete()
+        self.redirect("/")
+
 app=webapp2.WSGIApplication([
     ("/", MainPage),
     ("/product", ProductPage),
@@ -269,4 +275,5 @@ app=webapp2.WSGIApplication([
     ("/img", Image),
     ("/sent", SentPage),
     ("/review", ReviewPage),
+    ("/deleteProfile", DeleteProfile)
 ], debug=True)
