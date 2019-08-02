@@ -44,7 +44,6 @@
       <h3><br><br>There are currently no items to trade here</h3>
       {% endif %}
       <div class="auto-slider w3-content w3-display-containe">
-        <!-- <figure> -->
         <br><br><br>
         {% for product in products %}
         <div class="auto-slider__content mySlide key">
@@ -52,10 +51,6 @@
             <div class="product-image">
               <img class="center" alt="Product image" src="/img?img_id={{product.key.urlsafe()}}">
             </div>
-            <!-- <div class="product-info">
-              <br><h3>{{product.name}}</h3>
-                <h5>Traded by: product.seller.get().name</h5> <br>
-              </div> -->
           </a>
           <div class="product-info">
             <br>
