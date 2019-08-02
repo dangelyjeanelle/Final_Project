@@ -150,7 +150,7 @@ class ProductPage(webapp2.RequestHandler):
 class ProfilePage(webapp2.RequestHandler):
     def get(self):
         user=users.get_current_user()
-        email_address=user.nickname()
+        email_address=user.email()
         important=users.create_logout_url("/")
         uptrade_user=UptradeUser.get_by_id(user.user_id())
         encoded_string = base64.b64encode(uptrade_user.avatar).strip('\n')
@@ -264,14 +264,11 @@ class ReviewPage(webapp2.RequestHandler):
 class DeleteProfile(webapp2.RequestHandler):
     def get(self):
         uptrade_user=UptradeUser.get_by_id(users.get_current_user().user_id())
+        for product in uptrade_user.products:
+            product.delete()
         uptrade_user.key.delete()
         self.redirect("/")
 
-class SecretPage(webapp2.RequestHandler):
-    def get(self):
-        uptrade_user=UptradeUser.get_by_id(users.get_current_user().user_id())
-        uptrade_user.key.delete()
-        self.redirect("/")
 
 app=webapp2.WSGIApplication([
     ("/", MainPage),
