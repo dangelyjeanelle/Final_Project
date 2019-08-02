@@ -9,10 +9,6 @@ body {
   height: 100%;
   min-height: 100%;
 }
-html{
-  height: 100%;
-  min-height: 100%;
-}
 ul {
   padding: 0;
   margin-block-start: 0em;
