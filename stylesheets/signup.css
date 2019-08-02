@@ -44,15 +44,12 @@ a {
 
 body {
   background-image: linear-gradient(white,white, #c0d8a7);
+  background-size: cover;
   color: black;
   font-family: Georgia;
   font-size: 20px;
   margin: 0;
   height: 100%;
-}
-
-html {
-  height: 100%
 }
 
 ul .categories {
@@ -105,7 +102,6 @@ li a:hover {
   background-color: #81B14F;
 }
 
-
 * {
   box-sizing: border-box;
 }
@@ -124,7 +120,6 @@ hr {
   margin-bottom: 25px;
 }
 
-
 a {
   color: dodgerblue;
 }
@@ -133,4 +128,7 @@ a {
   background-color: #f1f1f1;
   text-align: center;
   width: 100%;
+}
+ul{
+  margin-top: -3px;
 }

@@ -1,17 +1,18 @@
 body {
   background-image: linear-gradient(white, white, #c0d8a7);
+  background-size: cover;
   color: black;
   font-family: Georgia;
   font-size: 20px;
   margin: 0;
   padding: 0;
   height: 100%;
+  min-height: 100%;
 }
-
-html {
-  height: 120%;
+html{
+  height: 100%;
+  min-height: 100%;
 }
-
 ul {
   padding: 0;
   margin-block-start: 0em;
@@ -23,7 +24,6 @@ ul .categories {
   margin: 0;
   padding: 0;
   background-color: #472c1d;
-  position: -webkit-sticky;
   position: sticky;
   top: 0;
   font-family: Georgia;
@@ -40,7 +40,6 @@ ul .profile {
   padding: 0;
   overflow: hidden;
   background-color: #472c1d;
-  position: -webkit-sticky;
   position: sticky;
   top: 0;
   font-family: Georgia;
@@ -105,6 +104,10 @@ li.dropdown {
 }
 
 h3{
+  text-align: center;
+  font-family: sans-serif;
+}
+h1{
   text-align: center;
   font-family: sans-serif;
 }
