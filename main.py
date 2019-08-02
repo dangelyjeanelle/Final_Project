@@ -132,13 +132,15 @@ class Image(webapp2.RequestHandler):
 class ProductPage(webapp2.RequestHandler):
     def get(self):
         if self.request.get("id"):
+            important=users.create_logout_url("/")
             urlsafe_key=self.request.get("id")
             current_user=UptradeUser.get_by_id(users.get_current_user().user_id())
             key=ndb.Key(urlsafe=urlsafe_key)
             product=Product.query().filter(Product.key==key).get()
             template_vars={
             "product":product,
-            "current_user":current_user
+            "current_user":current_user,
+            "important":important
             }
             template=jinja_env.get_template("templates/product.html")
             self.response.write(template.render(template_vars))
@@ -166,13 +168,15 @@ class ProfilePage(webapp2.RequestHandler):
 class ExchangePage(webapp2.RequestHandler):
     def get(self):
         if self.request.get("p"):
+            important=users.create_logout_url("/")
             urlsafe_p=self.request.get("p")
             p=ndb.Key(urlsafe=urlsafe_p)
             user=UptradeUser.get_by_id(users.get_current_user().user_id())
             exchange=Exchange()
             template_vars={
             "product1":p,
-            "current_user":user
+            "current_user":user,
+            "important":important
             }
             template=jinja_env.get_template("templates/exchange.html")
             self.response.write(template.render(template_vars))
@@ -181,8 +185,12 @@ class ExchangePage(webapp2.RequestHandler):
 
 class AddPage(webapp2.RequestHandler):
     def get(self):
+        important=users.create_logout_url("/")
+        template_vars={
+        "important":important
+        }
         template=jinja_env.get_template("templates/add.html")
-        self.response.write(template.render())
+        self.response.write(template.render(template_vars))
     def post(self):
         user=UptradeUser.get_by_id(users.get_current_user().user_id())
         new=Product(
@@ -206,6 +214,7 @@ class SignUpPage(webapp2.RequestHandler):
 
 class SentPage(webapp2.RequestHandler):
     def get(self):
+        important=users.create_logout_url("/")
         product1=self.request.get("p1")
         product2=self.request.get("p2")
         p1=ndb.Key(urlsafe=product1)
@@ -216,6 +225,7 @@ class SentPage(webapp2.RequestHandler):
         template_vars={
         "p1":p1,
         "p2":p2,
+        "important":important
         }
         template=jinja_env.get_template("templates/sent.html")
         self.response.write(template.render(template_vars))
