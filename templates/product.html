@@ -38,18 +38,13 @@
     <p>{{product.description}}</p>
     {% if product.seller.get()!=current_user %}
     <a href="/exchange?p={{product.key.urlsafe()}}"><button id="textColor" type="button" class="registerbtn"><h2>Exchange</h2></button></a>
-</div>
-<br><br>
     <!-- <button id="textColor" type="button" class="registerbtn"><a href="/exchange?p={{product.key.urlsafe()}}">Exchange</a></button> -->
     {% else %}
-    <script>
-      document.getElementById("myBtn").addEventListener("click", displayAlert);
-      function displayAlert() {
-        document.getElementById("demo").innerHTML = "This is your product. You cannot trade for it."
-      }
-      </script>
+      This is your product. You cannot trade with yourself on UpTrade!
     <a href="/"><button type="button" class="registerbtn"><h2>Go back to the home page</h2></button></a>
     {% endif %}
+  </div>
+  <br><br>
       <script src="/js/page.js" type="text/javascript"></script>
   </body>
 </html>
