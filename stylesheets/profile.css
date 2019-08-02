@@ -105,11 +105,14 @@ body {
   width:400px;
   margin: auto;
   background: #fff;
+  text-align:center;
   box-shadow: 0 4px 10px 0 rgba(0,0,0,0.5);
 }
 
 .image-container {
   position: relative;
+  background-image: url("http://starkovtattoo.spb.ru/images/200/DSC100224440.png");
+  padding: 30px;
 }
 
 .info {
@@ -118,7 +121,7 @@ body {
 }
 
 .main-container {
-  padding: 20px;
+  padding: 0px;
 
 }
 
@@ -134,4 +137,17 @@ body {
   text-align: center;
   color: #fff;
   background-color: #7ba15a;
+}
+
+.avatar {
+  border-radius:50%;
+  max-width:190px;
+  transform: scale(0.95);
+  transition:all .5s;
+  cursor:pointer;
+}
+
+.avatar:hover {
+  transform: scale(1);
+  box-shadow: 0 37.125px 70px -12.125px rgba(0,0,0,0.2);
 }
