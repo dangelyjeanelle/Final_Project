@@ -28,9 +28,14 @@
       <li class="dropdown profile">
         <a href="javascript:void(0)" class="dropbtn"><img src="/images/leaves.png" alt="leaves" height="18" width="18"/> Profile</a>
         <div class="dropdown-content">
-          <a href="/profile">View Profile</a>
-          <a href="/add">Add Product</a>
-          <a href="/profile">Delete Profile</a>
+          {% if sec== "in" %}
+            <a href="{{important}}">Sign {{sec}}</a>
+          {% else %}
+            <a href="/profile">View Profile</a>
+            <a href="/add">Add Product</a>
+            <a href="/profile">Delete Profile</a>
+            <a href="{{important}}">Sign {{sec}}</a>
+          {% endif %}
         </div>
       </li>
     </div>
