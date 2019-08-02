@@ -5,4 +5,4 @@ setInterval(() => {
                          html.clientHeight, html.scrollHeight, html.offsetHeight );
   body.style.height=(height)+"px";
   html.style.height = (height)+ 'px';
-}, 50);
+}, 100);
