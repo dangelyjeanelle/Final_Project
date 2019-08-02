@@ -43,7 +43,7 @@ a {
 }
 
 body {
-  background-image: linear-gradient(white, #c0d8a7);
+  background-image: linear-gradient(white, white, #c0d8a7);
   color: black;
   font-family: Georgia;
   font-size: 20px;

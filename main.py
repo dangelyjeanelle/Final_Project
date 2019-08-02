@@ -80,36 +80,31 @@ class MainPage(webapp2.RequestHandler):
     def get(self):
         # Read the "category" URL parameter
         category=self.request.get("category")
-
         # Based on the category, filter the Product query
         if category:
             pro=Product.query().filter(ndb.StringProperty("category")==category).fetch()
         else:
             pro=Product.query().fetch()
-
         user=users.get_current_user()
+        important=""
+        sec=""
         if user:
-            email_address=user.email()
-            print "user id is:", user.user_id()
             uptrade_user=UptradeUser.get_by_id(user.user_id())
-            signout_link_html='<a href="%s">Sign out</a>' % (users.create_logout_url("/"))
+            signout_link=users.create_logout_url("/")
             if uptrade_user:
-                self.response.write('''Welcome %s! <br> %s <br>''' % (
-              uptrade_user.name,
-              signout_link_html))
+                important=signout_link
+                sec="out"
             else:
                 self.redirect("/signup")
         else:
-            self.response.write('''
-        Please log in! <br>
-        <a href="%s">Sign in</a>''' % (
-          users.create_login_url('/')))
-        signin_link=users.create_login_url("/")
+            important=users.create_login_url("/")
+            sec="in"
         template_vars={
             "current_user":user,
-            "signin_link":signin_link,
+            "important":important,
             "products":pro,
             "title": category,
+            "sec":sec
         }
         template=jinja_env.get_template("templates/home.html")
         self.response.write(template.render(template_vars))
@@ -154,6 +149,7 @@ class ProfilePage(webapp2.RequestHandler):
     def get(self):
         user=users.get_current_user()
         email_address=user.nickname()
+        important=users.create_logout_url("/")
         uptrade_user=UptradeUser.get_by_id(user.user_id())
         encoded_string = base64.b64encode(uptrade_user.avatar).strip('\n')
         template_vars = {
@@ -162,6 +158,7 @@ class ProfilePage(webapp2.RequestHandler):
             "email_address": email_address,
             "title": "Profile",
             "active_page": "Profile",
+            "important":important
         }
         template=jinja_env.get_template("templates/profile.html")
         self.response.write(template.render(template_vars))
@@ -196,14 +193,16 @@ class AddPage(webapp2.RequestHandler):
         seller=user.put()).put()
         user.products.append(new)
         user.put()
-        template=jinja_env.get_template("templates/added.html")
-        self.response.write(template.render())
         self.redirect("/")
 
 class SignUpPage(webapp2.RequestHandler):
     def get(self):
+        important=users.create_logout_url("/")
+        template_vars={
+        "important":important
+        }
         template=jinja_env.get_template("templates/signup.html")
-        self.response.write(template.render())
+        self.response.write(template.render(template_vars))
 
 class SentPage(webapp2.RequestHandler):
     def get(self):
