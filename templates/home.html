@@ -31,7 +31,8 @@
           {% else %}
             <a href="/profile">View Profile</a>
             <a href="/add">Add Product</a>
-            <a href="/profile" class="delete" onclick="return confirm('Are you sure to delete this account permanently?')">Delete Profile</a>
+            <a href="/" class="delete" onclick="return confirm('Are you sure to delete this account permanently?')">Delete Profile</a>
+            <!-- <button class="delete" onclick="'confirmation()'">Delete Profile</button> -->
             <a href="{{important}}">Sign {{sec}}</a>
           {% endif %}
         </div>
@@ -72,8 +73,7 @@
           </div> -->
         {% endfor %}
       </div>
-      <!-- </ul> -->
-      <!-- </figure> -->
+
     </section>
     <script>
       let url=new URL(window.location.href);
@@ -89,11 +89,3 @@
     <script src="/js/home.js"></script>
   </body>
 </html>
-<!-- <div class="auto-slider">
-  <ul class="auto-slider__content">
-    <li><img src="http://lorempixel.com/output/food-q-c-720-360-1.jpg" alt="food-1"></li>
-    <li><img src="http://lorempixel.com/output/food-q-c-720-360-2.jpg" alt="food-2"></li>
-    <li><img src="http://lorempixel.com/output/food-q-c-720-360-3.jpg" alt="food-3"></li>
-    <li><img src="http://lorempixel.com/output/food-q-c-720-360-4.jpg" alt="food-4"></li>
-  </ul>
-  </div> -->

@@ -44,12 +44,13 @@ document.addEventListener('keydown', (e) => {
 });
 
 // let deleteLink = document.querySelectorAll('delete');
-const confirmation = () => {
-  let result = confirm("Are you sure you want to delete this account permanently?");
-  if (result) {
-    hd;
-  }
-};  
+// const confirmation = () => {
+//   if (confirm("Are you sure you want to delete this account permanently?") {
+//     alert("Your account is deleted");
+  // }else {
+
+//   }
+// };
   // function JSconfirm(){
   // 	swal({
   //     title: "Redirect to main page!",
