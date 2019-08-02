@@ -12,9 +12,7 @@
   </head>
    <body>
     <div id="logoHeader">
-      <div id="header">
-        <a href="/"><img src="/images/newheader.png" alt="logo"/></a>
-      </div>
+        <a href="/"><img id="header" width=100% src="/images/newheader.png" alt="logo"/></a>
     </div>
     <ul>
     <div class="categories">
@@ -33,7 +31,7 @@
           {% else %}
             <a href="/profile">View Profile</a>
             <a href="/add">Add Product</a>
-            <a href="/profile">Delete Profile</a>
+            <a href="/profile" class="delete" onclick="return confirm('Are you sure to delete this account permanently?')">Delete Profile</a>
             <a href="{{important}}">Sign {{sec}}</a>
           {% endif %}
         </div>
